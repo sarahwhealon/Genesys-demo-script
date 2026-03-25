@@ -3,269 +3,228 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mercy Health | HR Support Center</title>
+  <title>Mercy Health HR Agent Script</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <div class="brand">
-        <div class="logo-mark">M</div>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark">MH</div>
         <div>
           <h1>Mercy Health</h1>
-          <p>HR Support Center</p>
-        </div>
-      </div>
-      <nav class="nav">
-        <a href="#topics">Topics</a>
-        <a href="#call-intake">Call Intake</a>
-        <a href="#resources">Resources</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <span class="badge">Internal Employee Support</span>
-        <h2>Get connected to the right HR help, faster.</h2>
-        <p>
-          This internal portal helps employees quickly identify the right HR topic,
-          prepare for a call, and route inquiries to the appropriate support team.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#call-intake" class="btn btn-primary">Start Call Intake</a>
-          <a href="#topics" class="btn btn-secondary">Browse HR Topics</a>
-        </div>
-
-        <div class="hero-stats">
-          <div class="stat-card">
-            <strong>8</strong>
-            <span>HR Service Categories</span>
-          </div>
-          <div class="stat-card">
-            <strong>24/7</strong>
-            <span>Self-Service Access</span>
-          </div>
-          <div class="stat-card">
-            <strong>1 Place</strong>
-            <span>For Common Employee Needs</span>
-          </div>
+          <p>Human Resources Agent Script</p>
         </div>
       </div>
 
-      <div class="hero-panel">
-        <div class="panel-card">
-          <h3>Popular Reasons for Calling</h3>
-          <ul>
-            <li>Benefits enrollment and eligibility</li>
-            <li>Payroll questions and pay corrections</li>
-            <li>Leave of absence / FMLA</li>
-            <li>Policy clarification</li>
-            <li>Employment verification support</li>
-          </ul>
-        </div>
+      <div class="call-status">
+        <div class="status-pill live">Live Call</div>
+        <div class="call-meta">Queue: HR Support</div>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <main>
-    <section id="topics" class="section">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <span class="eyebrow">Support Topics</span>
-            <h2>Find the right HR category</h2>
+    <main class="main-layout">
+      <aside class="sidebar">
+        <section class="panel">
+          <h2>Employee Snapshot</h2>
+
+          <div class="field">
+            <label>Employee Name</label>
+            <input type="text" id="employeeName" placeholder="Enter employee name" />
           </div>
-          <div class="search-wrap">
-            <input
-              type="text"
-              id="topicSearch"
-              placeholder="Search HR topics..."
-              aria-label="Search HR topics"
-            />
+
+          <div class="field">
+            <label>Employee ID</label>
+            <input type="text" id="employeeId" placeholder="Enter employee ID" />
+          </div>
+
+          <div class="field">
+            <label>Department</label>
+            <input type="text" id="department" placeholder="Department" />
+          </div>
+
+          <div class="field">
+            <label>Callback Number</label>
+            <input type="text" id="callbackNumber" placeholder="(555) 555-5555" />
+          </div>
+
+          <button class="primary-btn" id="saveContextBtn">Save Context</button>
+        </section>
+
+        <section class="panel">
+          <h2>Quick Actions</h2>
+          <div class="quick-actions">
+            <button class="secondary-btn quick-fill" data-topic="Benefits">Benefits</button>
+            <button class="secondary-btn quick-fill" data-topic="Payroll">Payroll</button>
+            <button class="secondary-btn quick-fill" data-topic="Leave of Absence">Leave</button>
+            <button class="secondary-btn quick-fill" data-topic="Employee Relations">Relations</button>
+            <button class="secondary-btn quick-fill" data-topic="Policy Question">Policy</button>
+            <button class="secondary-btn quick-fill" data-topic="Employment Verification">Verification</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Call Summary</h2>
+          <div class="summary-box" id="summaryBox">
+            No call summary yet.
+          </div>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <div class="tabs">
+          <button class="tab active" data-tab="tab-greeting">Greeting</button>
+          <button class="tab" data-tab="tab-triage">Triage</button>
+          <button class="tab" data-tab="tab-topic">HR Topic</button>
+          <button class="tab" data-tab="tab-notes">Notes</button>
+          <button class="tab" data-tab="tab-wrapup">Wrap-Up</button>
+        </div>
+
+        <div class="tab-content active" id="tab-greeting">
+          <div class="content-panel">
+            <h2>Greeting Script</h2>
+            <div class="script-block">
+              <p>
+                “Thank you for calling Mercy Health Human Resources. My name is
+                <strong>[Agent Name]</strong>. May I please have your name and employee ID to better assist you today?”
+              </p>
+            </div>
+
+            <div class="field">
+              <label>Authentication Status</label>
+              <select id="authStatus">
+                <option value="">Select status</option>
+                <option>Verified</option>
+                <option>Partially Verified</option>
+                <option>Unable to Verify</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Opening Notes</label>
+              <textarea id="openingNotes" rows="4" placeholder="Capture opening details..."></textarea>
+            </div>
           </div>
         </div>
 
-        <div class="card-grid" id="topicGrid">
-          <article class="topic-card" data-topic="benefits insurance medical dental vision eligibility enrollment">
-            <div class="topic-icon">+</div>
-            <h3>Benefits</h3>
-            <p>Medical, dental, vision, enrollment, dependents, and plan eligibility questions.</p>
-            <button class="link-btn" data-fill="Benefits">Select Topic</button>
-          </article>
+        <div class="tab-content" id="tab-triage">
+          <div class="content-panel">
+            <h2>Triage Questions</h2>
 
-          <article class="topic-card" data-topic="payroll paychecks taxes direct deposit overtime deductions">
-            <div class="topic-icon">$</div>
-            <h3>Payroll</h3>
-            <p>Questions about paycheck issues, tax forms, direct deposit, deductions, and payroll timing.</p>
-            <button class="link-btn" data-fill="Payroll">Select Topic</button>
-          </article>
-
-          <article class="topic-card" data-topic="leave fmla absence disability sick maternity parental">
-            <div class="topic-icon">↺</div>
-            <h3>Leave of Absence</h3>
-            <p>FMLA, disability, parental leave, return-to-work support, and leave balances.</p>
-            <button class="link-btn" data-fill="Leave of Absence">Select Topic</button>
-          </article>
-
-          <article class="topic-card" data-topic="policy handbook conduct attendance dress code compliance">
-            <div class="topic-icon">i</div>
-            <h3>Policies</h3>
-            <p>Attendance, conduct, handbook questions, internal policy interpretation, and compliance topics.</p>
-            <button class="link-btn" data-fill="Policies">Select Topic</button>
-          </article>
-
-          <article class="topic-card" data-topic="recruiting internal transfer job posting application career">
-            <div class="topic-icon">★</div>
-            <h3>Careers & Transfers</h3>
-            <p>Internal job postings, transfer questions, recruiting support, and application follow-up.</p>
-            <button class="link-btn" data-fill="Careers & Transfers">Select Topic</button>
-          </article>
-
-          <article class="topic-card" data-topic="employee relations workplace conflict complaint concern manager">
-            <div class="topic-icon">!</div>
-            <h3>Employee Relations</h3>
-            <p>Workplace concerns, escalation support, conflict guidance, and employee relations matters.</p>
-            <button class="link-btn" data-fill="Employee Relations">Select Topic</button>
-          </article>
-
-          <article class="topic-card" data-topic="verification employment records title dates service">
-            <div class="topic-icon">✓</div>
-            <h3>Employment Verification</h3>
-            <p>Employment status, dates of service, job title records, and verification guidance.</p>
-            <button class="link-btn" data-fill="Employment Verification">Select Topic</button>
-          </article>
-
-          <article class="topic-card" data-topic="training onboarding learning education compliance orientation">
-            <div class="topic-icon">▲</div>
-            <h3>Onboarding & Training</h3>
-            <p>Orientation, required learning, onboarding support, and education-related HR questions.</p>
-            <button class="link-btn" data-fill="Onboarding & Training">Select Topic</button>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="call-intake" class="section section-alt">
-      <div class="container">
-        <div class="section-heading stacked">
-          <span class="eyebrow">Call Intake</span>
-          <h2>Prepare an HR request</h2>
-          <p>
-            Use this form to capture the employee issue before transferring or handling the call.
-          </p>
-        </div>
-
-        <form class="intake-form" id="intakeForm">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="employeeName">Employee Name</label>
-              <input type="text" id="employeeName" name="employeeName" placeholder="Enter employee name" />
+            <div class="script-block">
+              <p>
+                “I can help direct your request. Is your question related to benefits, payroll, leave, employee relations, policy, or another HR matter?”
+              </p>
             </div>
 
-            <div class="form-group">
-              <label for="employeeId">Employee ID</label>
-              <input type="text" id="employeeId" name="employeeId" placeholder="Enter employee ID" />
-            </div>
-
-            <div class="form-group">
-              <label for="department">Department</label>
-              <input type="text" id="department" name="department" placeholder="Enter department" />
-            </div>
-
-            <div class="form-group">
-              <label for="callbackNumber">Callback Number</label>
-              <input type="tel" id="callbackNumber" name="callbackNumber" placeholder="(555) 555-5555" />
-            </div>
-
-            <div class="form-group">
-              <label for="hrTopic">HR Topic</label>
-              <select id="hrTopic" name="hrTopic">
+            <div class="field">
+              <label>Primary HR Topic</label>
+              <select id="hrTopic">
                 <option value="">Select a topic</option>
                 <option>Benefits</option>
                 <option>Payroll</option>
                 <option>Leave of Absence</option>
-                <option>Policies</option>
-                <option>Careers & Transfers</option>
                 <option>Employee Relations</option>
+                <option>Policy Question</option>
                 <option>Employment Verification</option>
-                <option>Onboarding & Training</option>
+                <option>Onboarding / Training</option>
+                <option>Other</option>
               </select>
             </div>
 
-            <div class="form-group">
-              <label for="urgency">Urgency</label>
-              <select id="urgency" name="urgency">
+            <div class="field">
+              <label>Urgency</label>
+              <select id="urgency">
                 <option value="">Select urgency</option>
                 <option>Low</option>
-                <option>Medium</option>
+                <option>Standard</option>
                 <option>High</option>
                 <option>Critical</option>
               </select>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="issueSummary">Issue Summary</label>
-            <textarea
-              id="issueSummary"
-              name="issueSummary"
-              rows="5"
-              placeholder="Briefly summarize the employee's question or concern..."
-            ></textarea>
-          </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Submit Intake</button>
-            <button type="reset" class="btn btn-secondary">Clear Form</button>
-          </div>
-        </form>
-
-        <div class="confirmation hidden" id="confirmationBox">
-          <h3>Request captured</h3>
-          <p>Your HR intake entry has been prepared for review or routing.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="resources" class="section">
-      <div class="container">
-        <div class="section-heading stacked">
-          <span class="eyebrow">Quick Resources</span>
-          <h2>Helpful next steps</h2>
-        </div>
-
-        <div class="resource-grid">
-          <div class="resource-card">
-            <h3>Benefits Guide</h3>
-            <p>Access enrollment windows, eligibility guidance, and plan support information.</p>
-            <a href="#" class="text-link">Open resource</a>
-          </div>
-
-          <div class="resource-card">
-            <h3>Payroll Support</h3>
-            <p>Review pay schedule details, tax form timing, and direct deposit help.</p>
-            <a href="#" class="text-link">Open resource</a>
-          </div>
-
-          <div class="resource-card">
-            <h3>Leave Support</h3>
-            <p>Find documentation requirements and leave-related contact information.</p>
-            <a href="#" class="text-link">Open resource</a>
+            <div class="field">
+              <label>Does this require transfer or escalation?</label>
+              <select id="escalation">
+                <option value="">Select option</option>
+                <option>No</option>
+                <option>Transfer Needed</option>
+                <option>Supervisor Escalation</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <p>© 2026 Mercy Health HR Support Center</p>
-      <p>Internal use only</p>
-    </div>
-  </footer>
+        <div class="tab-content" id="tab-topic">
+          <div class="content-panel">
+            <h2>HR Topic Guidance</h2>
+
+            <div class="topic-guidance" id="topicGuidance">
+              <div class="guidance-card">
+                <h3>Select a topic</h3>
+                <p>Choose an HR topic in the Triage tab to display the recommended questions and script.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-notes">
+          <div class="content-panel">
+            <h2>Case Notes</h2>
+
+            <div class="field">
+              <label>Issue Summary</label>
+              <textarea id="issueSummary" rows="5" placeholder="Describe the employee's issue..."></textarea>
+            </div>
+
+            <div class="field">
+              <label>Actions Taken</label>
+              <textarea id="actionsTaken" rows="5" placeholder="Document actions taken during the call..."></textarea>
+            </div>
+
+            <div class="field">
+              <label>Next Steps Provided</label>
+              <textarea id="nextSteps" rows="4" placeholder="Document the next steps communicated to the employee..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-wrapup">
+          <div class="content-panel">
+            <h2>Wrap-Up</h2>
+
+            <div class="script-block">
+              <p>
+                “Thank you for calling Mercy Health Human Resources. I have documented your request and reviewed the next steps with you. Is there anything else I can help you with today?”
+              </p>
+            </div>
+
+            <div class="field">
+              <label>Disposition</label>
+              <select id="disposition">
+                <option value="">Select disposition</option>
+                <option>Resolved</option>
+                <option>Transferred</option>
+                <option>Escalated</option>
+                <option>Follow-Up Needed</option>
+                <option>Pending Documentation</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Final Wrap-Up Notes</label>
+              <textarea id="wrapupNotes" rows="4" placeholder="Enter final disposition notes..."></textarea>
+            </div>
+
+            <div class="action-row">
+              <button class="primary-btn" id="generateSummaryBtn">Generate Call Summary</button>
+              <button class="secondary-btn" id="clearAllBtn">Clear All</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
