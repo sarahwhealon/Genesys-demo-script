@@ -10,7 +10,11 @@
   <div class="app-shell">
     <header class="topbar">
       <div class="brand-block">
-        <div class="brand-mark">MH</div>
+        <img
+          src="https://cdn.phenompeople.com/CareerConnectResources/BSMMHPUS/social/1024x512-1661425097950.jpg"
+          alt="Mercy Health Logo"
+          class="logo-img"
+        />
         <div>
           <h1>Mercy Health</h1>
           <p>Human Resources Agent Script</p>
@@ -29,23 +33,28 @@
           <h2>Employee Snapshot</h2>
 
           <div class="field">
-            <label>Employee Name</label>
-            <input type="text" id="employeeName" placeholder="Enter employee name" />
+            <label for="agentName">Agent Name</label>
+            <input type="text" id="agentName" value="Sarah Whealon" />
           </div>
 
           <div class="field">
-            <label>Employee ID</label>
-            <input type="text" id="employeeId" placeholder="Enter employee ID" />
+            <label for="employeeName">Employee Name</label>
+            <input type="text" id="employeeName" value="John Smith" />
           </div>
 
           <div class="field">
-            <label>Department</label>
-            <input type="text" id="department" placeholder="Department" />
+            <label for="employeeId">Employee ID</label>
+            <input type="text" id="employeeId" value="123456" />
           </div>
 
           <div class="field">
-            <label>Callback Number</label>
-            <input type="text" id="callbackNumber" placeholder="(555) 555-5555" />
+            <label for="department">Department</label>
+            <input type="text" id="department" value="Nursing" />
+          </div>
+
+          <div class="field">
+            <label for="callbackNumber">Callback Number</label>
+            <input type="text" id="callbackNumber" value="(555) 123-4567" />
           </div>
 
           <button class="primary-btn" id="saveContextBtn">Save Context</button>
@@ -54,12 +63,12 @@
         <section class="panel">
           <h2>Quick Actions</h2>
           <div class="quick-actions">
-            <button class="secondary-btn quick-fill" data-topic="Benefits">Benefits</button>
-            <button class="secondary-btn quick-fill" data-topic="Payroll">Payroll</button>
-            <button class="secondary-btn quick-fill" data-topic="Leave of Absence">Leave</button>
-            <button class="secondary-btn quick-fill" data-topic="Employee Relations">Relations</button>
-            <button class="secondary-btn quick-fill" data-topic="Policy Question">Policy</button>
-            <button class="secondary-btn quick-fill" data-topic="Employment Verification">Verification</button>
+            <button class="secondary-btn quick-fill" data-topic="Benefits" type="button">Benefits</button>
+            <button class="secondary-btn quick-fill" data-topic="Payroll" type="button">Payroll</button>
+            <button class="secondary-btn quick-fill" data-topic="Leave of Absence" type="button">Leave</button>
+            <button class="secondary-btn quick-fill" data-topic="Employee Relations" type="button">Relations</button>
+            <button class="secondary-btn quick-fill" data-topic="Policy Question" type="button">Policy</button>
+            <button class="secondary-btn quick-fill" data-topic="Employment Verification" type="button">Verification</button>
           </div>
         </section>
 
@@ -73,35 +82,35 @@
 
       <section class="workspace">
         <div class="tabs">
-          <button class="tab active" data-tab="tab-greeting">Greeting</button>
-          <button class="tab" data-tab="tab-triage">Triage</button>
-          <button class="tab" data-tab="tab-topic">HR Topic</button>
-          <button class="tab" data-tab="tab-notes">Notes</button>
-          <button class="tab" data-tab="tab-wrapup">Wrap-Up</button>
+          <button class="tab active" data-tab="tab-greeting" type="button">Greeting</button>
+          <button class="tab" data-tab="tab-triage" type="button">Triage</button>
+          <button class="tab" data-tab="tab-topic" type="button">HR Topic</button>
+          <button class="tab" data-tab="tab-notes" type="button">Notes</button>
+          <button class="tab" data-tab="tab-wrapup" type="button">Wrap-Up</button>
         </div>
 
         <div class="tab-content active" id="tab-greeting">
           <div class="content-panel">
             <h2>Greeting Script</h2>
+
             <div class="script-block">
               <p>
                 “Thank you for calling Mercy Health Human Resources. My name is
-                <strong>[Agent Name]</strong>. May I please have your name and employee ID to better assist you today?”
+                <strong>Sarah Whealon</strong>. May I please have your name and employee ID to better assist you today?”
               </p>
             </div>
 
             <div class="field">
-              <label>Authentication Status</label>
+              <label for="authStatus">Authentication Status</label>
               <select id="authStatus">
-                <option value="">Select status</option>
-                <option>Verified</option>
+                <option selected>Verified</option>
                 <option>Partially Verified</option>
                 <option>Unable to Verify</option>
               </select>
             </div>
 
             <div class="field">
-              <label>Opening Notes</label>
+              <label for="openingNotes">Opening Notes</label>
               <textarea id="openingNotes" rows="4" placeholder="Capture opening details..."></textarea>
             </div>
           </div>
@@ -118,7 +127,7 @@
             </div>
 
             <div class="field">
-              <label>Primary HR Topic</label>
+              <label for="hrTopic">Primary HR Topic</label>
               <select id="hrTopic">
                 <option value="">Select a topic</option>
                 <option>Benefits</option>
@@ -133,7 +142,7 @@
             </div>
 
             <div class="field">
-              <label>Urgency</label>
+              <label for="urgency">Urgency</label>
               <select id="urgency">
                 <option value="">Select urgency</option>
                 <option>Low</option>
@@ -144,7 +153,7 @@
             </div>
 
             <div class="field">
-              <label>Does this require transfer or escalation?</label>
+              <label for="escalation">Does this require transfer or escalation?</label>
               <select id="escalation">
                 <option value="">Select option</option>
                 <option>No</option>
@@ -173,17 +182,17 @@
             <h2>Case Notes</h2>
 
             <div class="field">
-              <label>Issue Summary</label>
+              <label for="issueSummary">Issue Summary</label>
               <textarea id="issueSummary" rows="5" placeholder="Describe the employee's issue..."></textarea>
             </div>
 
             <div class="field">
-              <label>Actions Taken</label>
+              <label for="actionsTaken">Actions Taken</label>
               <textarea id="actionsTaken" rows="5" placeholder="Document actions taken during the call..."></textarea>
             </div>
 
             <div class="field">
-              <label>Next Steps Provided</label>
+              <label for="nextSteps">Next Steps Provided</label>
               <textarea id="nextSteps" rows="4" placeholder="Document the next steps communicated to the employee..."></textarea>
             </div>
           </div>
@@ -200,7 +209,7 @@
             </div>
 
             <div class="field">
-              <label>Disposition</label>
+              <label for="disposition">Disposition</label>
               <select id="disposition">
                 <option value="">Select disposition</option>
                 <option>Resolved</option>
@@ -212,13 +221,13 @@
             </div>
 
             <div class="field">
-              <label>Final Wrap-Up Notes</label>
+              <label for="wrapupNotes">Final Wrap-Up Notes</label>
               <textarea id="wrapupNotes" rows="4" placeholder="Enter final disposition notes..."></textarea>
             </div>
 
             <div class="action-row">
-              <button class="primary-btn" id="generateSummaryBtn">Generate Call Summary</button>
-              <button class="secondary-btn" id="clearAllBtn">Clear All</button>
+              <button class="primary-btn" id="generateSummaryBtn" type="button">Generate Call Summary</button>
+              <button class="secondary-btn" id="clearAllBtn" type="button">Clear All</button>
             </div>
           </div>
         </div>
