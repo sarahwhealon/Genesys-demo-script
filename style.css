@@ -8,7 +8,6 @@
   --primary: #0b6e4f;
   --primary-dark: #08563e;
   --accent: #e7f4ef;
-  --danger: #b42318;
   --shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
   --radius: 14px;
 }
@@ -24,9 +23,9 @@ body {
   color: var(--text);
 }
 
-.app-shell {
-  min-height: 100vh;
-}
+/* =========================
+   HEADER (FIXED / COMPACT)
+========================= */
 
 .topbar {
   display: flex;
@@ -35,49 +34,47 @@ body {
   gap: 1rem;
   background: var(--panel);
   border-bottom: 1px solid var(--border);
-  padding: 14px 20px;
+  padding: 8px 16px; /* reduced height */
 }
 
 .brand-block {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
-.brand-mark {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: #fff;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
+/* 🔥 Key fix: constrain large banner image */
+.logo-img {
+  height: 28px;
+  max-width: 120px;     /* prevents wide stretching */
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 .brand-block h1 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 0.95rem;
+  line-height: 1.1;
 }
 
 .brand-block p {
-  margin: 4px 0 0;
+  margin: 2px 0 0;
+  font-size: 0.75rem;
   color: var(--muted);
-  font-size: 0.92rem;
 }
 
+/* Status area */
 .call-status {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .status-pill {
-  padding: 8px 12px;
+  padding: 5px 10px;
   border-radius: 999px;
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.75rem;
 }
 
 .status-pill.live {
@@ -87,20 +84,32 @@ body {
 
 .call-meta {
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.8rem;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.app-shell {
+  min-height: 100vh;
 }
 
 .main-layout {
   display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 18px;
-  padding: 18px;
+  grid-template-columns: 300px 1fr;
+  gap: 16px;
+  padding: 16px;
 }
 
 .sidebar,
 .workspace {
   min-width: 0;
 }
+
+/* =========================
+   PANELS
+========================= */
 
 .panel,
 .content-panel {
@@ -111,31 +120,36 @@ body {
 }
 
 .panel {
-  padding: 16px;
-  margin-bottom: 16px;
+  padding: 14px;
+  margin-bottom: 14px;
 }
 
 .panel h2,
 .content-panel h2 {
   margin-top: 0;
-  margin-bottom: 14px;
-  font-size: 1.05rem;
+  margin-bottom: 12px;
+  font-size: 1rem;
 }
+
+/* =========================
+   TABS
+========================= */
 
 .tabs {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .tab {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 14px;
+  border-radius: 8px;
+  padding: 8px 12px;
   cursor: pointer;
   font-weight: 700;
+  font-size: 0.85rem;
   color: var(--muted);
 }
 
@@ -154,19 +168,23 @@ body {
 }
 
 .content-panel {
-  padding: 20px;
+  padding: 16px;
 }
+
+/* =========================
+   FORM FIELDS
+========================= */
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 14px;
+  gap: 5px;
+  margin-bottom: 12px;
 }
 
 label {
   font-weight: 700;
-  font-size: 0.93rem;
+  font-size: 0.85rem;
 }
 
 input,
@@ -174,10 +192,11 @@ select,
 textarea {
   width: 100%;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: #fff;
-  padding: 11px 12px;
+  padding: 9px 10px;
   font: inherit;
+  font-size: 0.9rem;
   color: var(--text);
 }
 
@@ -185,27 +204,36 @@ textarea {
   resize: vertical;
 }
 
+/* =========================
+   SCRIPT BLOCK
+========================= */
+
 .script-block {
   background: var(--panel-soft);
   border: 1px solid var(--border);
   border-left: 4px solid var(--primary);
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 16px;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 14px;
 }
 
 .script-block p {
   margin: 0;
+  font-size: 0.9rem;
 }
+
+/* =========================
+   BUTTONS
+========================= */
 
 .primary-btn,
 .secondary-btn {
   border: none;
-  border-radius: 10px;
-  padding: 11px 14px;
+  border-radius: 8px;
+  padding: 9px 12px;
   font-weight: 700;
   cursor: pointer;
-  font: inherit;
+  font-size: 0.85rem;
 }
 
 .primary-btn {
@@ -223,46 +251,66 @@ textarea {
   border: 1px solid var(--border);
 }
 
+/* =========================
+   QUICK ACTIONS
+========================= */
+
 .quick-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 6px;
 }
 
+/* =========================
+   SUMMARY BOX
+========================= */
+
 .summary-box {
-  min-height: 130px;
+  min-height: 110px;
   background: var(--panel-soft);
   border: 1px dashed var(--border);
-  border-radius: 12px;
-  padding: 12px;
+  border-radius: 10px;
+  padding: 10px;
   white-space: pre-line;
   color: var(--muted);
+  font-size: 0.85rem;
 }
+
+/* =========================
+   GUIDANCE
+========================= */
 
 .guidance-card {
   background: var(--panel-soft);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 14px;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
 }
 
 .guidance-card h3 {
   margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1rem;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
 }
 
 .guidance-card ul {
-  margin: 10px 0 0 18px;
-  padding: 0;
+  margin: 8px 0 0 16px;
 }
+
+/* =========================
+   ACTION ROW
+========================= */
 
 .action-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 960px) {
   .main-layout {
