@@ -96,7 +96,7 @@
             <div class="script-block">
               <p>
                 “Thank you for calling Mercy Health Human Resources. My name is
-                <strong>Sarah Whealon</strong>. May I please have your name and employee ID to better assist you today?”
+                <strong>Sarah Whealon</strong>. I see your information here—how can I assist you today?”
               </p>
             </div>
 
@@ -167,11 +167,10 @@
         <div class="tab-content" id="tab-topic">
           <div class="content-panel">
             <h2>HR Topic Guidance</h2>
-
             <div class="topic-guidance" id="topicGuidance">
               <div class="guidance-card">
                 <h3>Select a topic</h3>
-                <p>Choose an HR topic in the Triage tab to display the recommended questions and script.</p>
+                <p>Choose an HR topic in the Triage tab to display guidance.</p>
               </div>
             </div>
           </div>
@@ -183,17 +182,17 @@
 
             <div class="field">
               <label for="issueSummary">Issue Summary</label>
-              <textarea id="issueSummary" rows="5" placeholder="Describe the employee's issue..."></textarea>
+              <textarea id="issueSummary" rows="5"></textarea>
             </div>
 
             <div class="field">
               <label for="actionsTaken">Actions Taken</label>
-              <textarea id="actionsTaken" rows="5" placeholder="Document actions taken during the call..."></textarea>
+              <textarea id="actionsTaken" rows="5"></textarea>
             </div>
 
             <div class="field">
-              <label for="nextSteps">Next Steps Provided</label>
-              <textarea id="nextSteps" rows="4" placeholder="Document the next steps communicated to the employee..."></textarea>
+              <label for="nextSteps">Next Steps</label>
+              <textarea id="nextSteps" rows="4"></textarea>
             </div>
           </div>
         </div>
@@ -202,32 +201,19 @@
           <div class="content-panel">
             <h2>Wrap-Up</h2>
 
-            <div class="script-block">
-              <p>
-                “Thank you for calling Mercy Health Human Resources. I have documented your request and reviewed the next steps with you. Is there anything else I can help you with today?”
-              </p>
-            </div>
-
             <div class="field">
               <label for="disposition">Disposition</label>
               <select id="disposition">
-                <option value="">Select disposition</option>
+                <option value="">Select</option>
                 <option>Resolved</option>
                 <option>Transferred</option>
                 <option>Escalated</option>
-                <option>Follow-Up Needed</option>
-                <option>Pending Documentation</option>
               </select>
             </div>
 
-            <div class="field">
-              <label for="wrapupNotes">Final Wrap-Up Notes</label>
-              <textarea id="wrapupNotes" rows="4" placeholder="Enter final disposition notes..."></textarea>
-            </div>
-
             <div class="action-row">
-              <button class="primary-btn" id="generateSummaryBtn" type="button">Generate Call Summary</button>
-              <button class="secondary-btn" id="clearAllBtn" type="button">Clear All</button>
+              <button class="primary-btn" id="generateSummaryBtn" type="button">Generate Summary</button>
+              <button class="secondary-btn" id="clearAllBtn" type="button">Clear</button>
             </div>
           </div>
         </div>
