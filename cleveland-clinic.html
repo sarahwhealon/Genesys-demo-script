@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cleveland Clinic Agent Script</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/8/82/Cleveland_Clinic_logo.svg"
+          alt="Cleveland Clinic Logo"
+          class="logo-img"
+        />
+        <div>
+          <h1>Cleveland Clinic</h1>
+          <p>Employee Support Script</p>
+        </div>
+      </div>
+
+      <div class="call-status">
+        <div class="status-pill live">Live Call</div>
+        <div class="call-meta">Queue: Employee Support</div>
+      </div>
+    </header>
+
+    <main class="main-layout">
+      <aside class="sidebar">
+        <section class="panel">
+          <h2>Employee Snapshot</h2>
+
+          <div class="field">
+            <label for="employeeName">Employee Name</label>
+            <input type="text" id="employeeName" value="Allison Wheeler" />
+          </div>
+
+          <div class="field">
+            <label for="employeeId">Employee ID</label>
+            <input type="text" id="employeeId" value="1586582" />
+          </div>
+
+          <div class="field">
+            <label for="department">Department</label>
+            <input type="text" id="department" value="Cardiology" />
+          </div>
+
+          <div class="field">
+            <label for="callbackNumber">Callback Number</label>
+            <input type="text" id="callbackNumber" value="(555) 987-6543" />
+          </div>
+
+          <button class="primary-btn" id="saveContextBtn">Save Context</button>
+        </section>
+
+        <section class="panel">
+          <h2>Quick Actions</h2>
+          <div class="quick-actions">
+            <button class="secondary-btn quick-fill" data-topic="Benefits" type="button">Benefits</button>
+            <button class="secondary-btn quick-fill" data-topic="Payroll" type="button">Payroll</button>
+            <button class="secondary-btn quick-fill" data-topic="Leave of Absence" type="button">Leave</button>
+            <button class="secondary-btn quick-fill" data-topic="Employee Relations" type="button">Relations</button>
+            <button class="secondary-btn quick-fill" data-topic="Policy Question" type="button">Policy</button>
+            <button class="secondary-btn quick-fill" data-topic="Employment Verification" type="button">Verification</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Call Summary</h2>
+          <div class="summary-box" id="summaryBox">
+            No call summary yet.
+          </div>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <div class="tabs">
+          <button class="tab active" data-tab="tab-greeting" type="button">Greeting</button>
+          <button class="tab" data-tab="tab-triage" type="button">Triage</button>
+          <button class="tab" data-tab="tab-topic" type="button">HR Topic</button>
+          <button class="tab" data-tab="tab-notes" type="button">Notes</button>
+          <button class="tab" data-tab="tab-wrapup" type="button">Wrap-Up</button>
+        </div>
+
+        <div class="tab-content active" id="tab-greeting">
+          <div class="content-panel">
+            <h2>Greeting Script</h2>
+
+            <div class="script-block">
+              <p>
+                “Thank you for calling Cleveland Clinic. My name is
+                <strong>Sarah Whealon</strong>. I have your information here—how can I assist you today?”
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="authStatus">Authentication Status</label>
+              <select id="authStatus">
+                <option selected>Verified</option>
+                <option>Partially Verified</option>
+                <option>Unable to Verify</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="openingNotes">Opening Notes</label>
+              <textarea id="openingNotes" rows="4" placeholder="Capture opening details..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-triage">
+          <div class="content-panel">
+            <h2>Triage Questions</h2>
+
+            <div class="script-block">
+              <p>
+                “I can help route your request. Is your question related to benefits, payroll, leave, employee relations, policy, or another support matter?”
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="hrTopic">Primary Topic</label>
+              <select id="hrTopic">
+                <option value="">Select a topic</option>
+                <option>Benefits</option>
+                <option>Payroll</option>
+                <option>Leave of Absence</option>
+                <option>Employee Relations</option>
+                <option>Policy Question</option>
+                <option>Employment Verification</option>
+                <option>Onboarding / Training</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="urgency">Urgency</label>
+              <select id="urgency">
+                <option value="">Select urgency</option>
+                <option>Low</option>
+                <option>Standard</option>
+                <option>High</option>
+                <option>Critical</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="escalation">Does this require transfer or escalation?</label>
+              <select id="escalation">
+                <option value="">Select option</option>
+                <option>No</option>
+                <option>Transfer Needed</option>
+                <option>Supervisor Escalation</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-topic">
+          <div class="content-panel">
+            <h2>Guidance</h2>
+            <div class="topic-guidance" id="topicGuidance">
+              <div class="guidance-card">
+                <h3>Select a topic</h3>
+                <p>Choose a topic in the Triage tab to display guidance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-notes">
+          <div class="content-panel">
+            <h2>Case Notes</h2>
+
+            <div class="field">
+              <label for="issueSummary">Issue Summary</label>
+              <textarea id="issueSummary" rows="5"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="actionsTaken">Actions Taken</label>
+              <textarea id="actionsTaken" rows="5"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="nextSteps">Next Steps</label>
+              <textarea id="nextSteps" rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-wrapup">
+          <div class="content-panel">
+            <h2>Wrap-Up</h2>
+
+            <div class="field">
+              <label for="disposition">Disposition</label>
+              <select id="disposition">
+                <option value="">Select</option>
+                <option>Resolved</option>
+                <option>Transferred</option>
+                <option>Escalated</option>
+              </select>
+            </div>
+
+            <div class="action-row">
+              <button class="primary-btn" id="generateSummaryBtn" type="button">Generate Summary</button>
+              <button class="secondary-btn" id="clearAllBtn" type="button">Clear</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
