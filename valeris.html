@@ -1,327 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valeris Commercial Support Script</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Valeris Commercial Support Script</title>
 
-  <style>
-    :root {
-      --bg: #f4f7fb;
-      --panel: #ffffff;
-      --border: #d9e2ec;
-      --text: #142033;
-      --muted: #5f7187;
-      --navy: #0f1f3d;
-      --blue: #2f80ff;
-      --shadow: 0 12px 30px rgba(0,0,0,0.08);
-      --radius: 18px;
-    }
+<style>
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --border: #d9e2ec;
+  --text: #142033;
+  --muted: #5f7187;
+  --navy: #0f1f3d;
+  --blue: #2f80ff;
+  --shadow: 0 14px 36px rgba(0,0,0,0.08);
+  --radius: 16px;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #f7fbff 0%, #eef4fb 100%);
-      color: var(--text);
-    }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #f7fbff, #eef4fb);
+  color: var(--text);
+}
 
-    .app-shell {
-      padding: 18px;
-    }
+/* HEADER */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #0f1f3d, #1b2f5e);
+  padding: 16px 20px;
+  color: white;
+}
 
-    /* ================= HEADER ================= */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      background: linear-gradient(135deg, #0f1f3d, #1b2f5e);
-      border-radius: 22px;
-      padding: 16px 22px;
-      box-shadow: var(--shadow);
-      margin-bottom: 18px;
-      color: white;
-    }
+.logo-wrap {
+  background: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
 
-    .brand-wrap {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+.logo-img {
+  height: 40px;
+}
 
-    /* 🔥 FIXED LOGO PRESENTATION */
-    .logo-container {
-      background: #ffffff;
-      padding: 10px 16px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-    }
+.main {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  padding: 16px;
+}
 
-    .logo-img {
-      height: 42px;
-      width: auto;
-      object-fit: contain;
-      display: block;
-    }
+.panel {
+  background: white;
+  border-radius: var(--radius);
+  padding: 14px;
+  border: 1px solid var(--border);
+}
 
-    .brand-text h1 {
-      margin: 0;
-      font-size: 1.2rem;
-    }
+.field {
+  margin-bottom: 10px;
+}
 
-    .brand-text p {
-      margin: 4px 0 0;
-      font-size: 0.85rem;
-      color: #cbd5e1;
-    }
+.field label {
+  font-weight: bold;
+  font-size: 0.85rem;
+}
 
-    .status {
-      font-size: 0.85rem;
-      font-weight: bold;
-      background: rgba(255,255,255,0.15);
-      padding: 6px 12px;
-      border-radius: 999px;
-    }
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
 
-    /* ================= LAYOUT ================= */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
 
-    .main-grid {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 18px;
-    }
+.tab {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
 
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: var(--shadow);
-    }
+.tab.active {
+  background: var(--navy);
+  color: white;
+}
 
-    .panel h2 {
-      margin-top: 0;
-      font-size: 1rem;
-    }
+.tab-content {
+  display: none;
+}
 
-    .field {
-      margin-bottom: 12px;
-    }
+.tab-content.active {
+  display: block;
+}
 
-    .field label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
+.script-box {
+  background: #eef6ff;
+  border-left: 4px solid var(--blue);
+  padding: 10px;
+  margin-bottom: 10px;
+}
 
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-    }
+.guidance {
+  background: #f7fafc;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
 
-    textarea {
-      resize: vertical;
-    }
+button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: var(--blue);
+  color: white;
+  cursor: pointer;
+}
 
-    .btn {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.summary {
+  min-height: 120px;
+  background: #f1f5f9;
+  padding: 10px;
+  border-radius: 10px;
+}
 
-    .btn-primary {
-      background: var(--blue);
-      color: white;
-    }
-
-    .summary {
-      min-height: 120px;
-      background: #f1f5f9;
-      border-radius: 10px;
-      padding: 10px;
-      font-size: 0.85rem;
-    }
-
-    /* ================= TABS ================= */
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .tab {
-      padding: 8px 12px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      font-weight: bold;
-      background: white;
-    }
-
-    .tab.active {
-      background: var(--navy);
-      color: white;
-      border-color: var(--navy);
-    }
-
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .script-box {
-      background: #eef6ff;
-      border-left: 4px solid var(--blue);
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 12px;
-    }
-
-    @media (max-width: 900px) {
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
-  <div class="app-shell">
 
-    <!-- HEADER -->
-    <header class="topbar">
-      <div class="brand-wrap">
-        <div class="logo-container">
-          <img 
-            src="https://mma.prnewswire.com/media/2695440/Valeris_Logo.jpg?p=publish"
-            class="logo-img"
-            alt="Valeris Logo"
-          />
-        </div>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo-wrap">
+      <img src="https://mma.prnewswire.com/media/2695440/Valeris_Logo.jpg?p=publish" class="logo-img"/>
+    </div>
+    <div>
+      <strong>Valeris</strong><br/>
+      Commercial Support Script
+    </div>
+  </div>
+</header>
 
-        <div class="brand-text">
-          <h1>Valeris Commercial Support</h1>
-          <p>Commercial intake and solution routing</p>
-        </div>
-      </div>
+<div class="main">
 
-      <div class="status">Connected</div>
-    </header>
+<!-- LEFT PANEL -->
+<div class="panel">
+  <h3>Caller Snapshot</h3>
 
-    <!-- MAIN -->
-    <main class="main-grid">
-
-      <!-- LEFT PANEL -->
-      <aside class="panel">
-        <h2>Caller Snapshot</h2>
-
-        <div class="field">
-          <label>Caller Type</label>
-          <select>
-            <option>Life Sciences Partner</option>
-            <option>Patient</option>
-            <option>Provider</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Contact Name</label>
-          <input value="Megan Foster" />
-        </div>
-
-        <div class="field">
-          <label>Organization</label>
-          <input value="NorthStar Bio" />
-        </div>
-
-        <div class="field">
-          <label>Callback</label>
-          <input value="(555) 410-2288" />
-        </div>
-
-        <button class="btn btn-primary">Save Snapshot</button>
-
-        <h2 style="margin-top:20px;">Summary</h2>
-        <div class="summary">No summary yet.</div>
-      </aside>
-
-      <!-- WORKSPACE -->
-      <section class="panel">
-
-        <div class="tabs">
-          <div class="tab active" data-tab="1">Opening</div>
-          <div class="tab" data-tab="2">Discovery</div>
-          <div class="tab" data-tab="3">Wrap-Up</div>
-        </div>
-
-        <div class="tab-content active" id="tab-1">
-          <div class="script-box">
-            “Thank you for contacting Valeris. My name is Sarah. I’ll gather a few details to connect you with the right team.”
-          </div>
-        </div>
-
-        <div class="tab-content" id="tab-2">
-          <div class="script-box">
-            “Can you describe the commercial or patient support need you're trying to address?”
-          </div>
-
-          <div class="field">
-            <label>Solution Area</label>
-            <select>
-              <option>Insights & Data</option>
-              <option>Patient Support</option>
-              <option>HCP Engagement</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label>Details</label>
-            <textarea></textarea>
-          </div>
-        </div>
-
-        <div class="tab-content" id="tab-3">
-          <div class="script-box">
-            “Thank you for contacting Valeris. We’ll ensure the right team follows up.”
-          </div>
-
-          <button class="btn btn-primary">Generate Summary</button>
-        </div>
-
-      </section>
-
-    </main>
+  <div class="field">
+    <label>Caller Type</label>
+    <select id="callerType">
+      <option>Life Sciences Partner</option>
+      <option>Patient</option>
+      <option>Provider</option>
+    </select>
   </div>
 
-  <script>
-    const tabs = document.querySelectorAll(".tab");
-    const contents = document.querySelectorAll(".tab-content");
+  <div class="field">
+    <label>Name</label>
+    <input id="name" value="Megan Foster"/>
+  </div>
 
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        tabs.forEach(t => t.classList.remove("active"));
-        contents.forEach(c => c.classList.remove("active"));
+  <div class="field">
+    <label>Company</label>
+    <input id="company" value="NorthStar Bio"/>
+  </div>
 
-        tab.classList.add("active");
-        document.getElementById("tab-" + tab.dataset.tab).classList.add("active");
-      });
-    });
-  </script>
+  <div class="field">
+    <label>Callback</label>
+    <input id="callback" value="(555) 410-2288"/>
+  </div>
+
+  <button onclick="saveContext()">Save</button>
+
+  <h3>Summary</h3>
+  <div class="summary" id="summary">No summary yet.</div>
+</div>
+
+<!-- WORKSPACE -->
+<div class="panel">
+
+<div class="tabs">
+  <div class="tab active" data-tab="1">Opening</div>
+  <div class="tab" data-tab="2">Discovery</div>
+  <div class="tab" data-tab="3">Solutions</div>
+  <div class="tab" data-tab="4">Notes</div>
+  <div class="tab" data-tab="5">Wrap-Up</div>
+</div>
+
+<div id="tab-1" class="tab-content active">
+  <div class="script-box">
+    “Thank you for contacting Valeris. I’ll gather a few details to connect you with the right team.”
+  </div>
+</div>
+
+<div id="tab-2" class="tab-content">
+  <div class="script-box">
+    “Can you describe your need or challenge?”
+  </div>
+
+  <div class="field">
+    <label>Solution Area</label>
+    <select id="topic">
+      <option>Insights and Data</option>
+      <option>Patient Support</option>
+      <option>HCP Engagement</option>
+    </select>
+  </div>
+</div>
+
+<div id="tab-3" class="tab-content">
+  <div class="guidance" id="guidance">
+    Select a topic to see guidance
+  </div>
+</div>
+
+<div id="tab-4" class="tab-content">
+  <textarea id="notes" placeholder="Notes..."></textarea>
+</div>
+
+<div id="tab-5" class="tab-content">
+  <div class="script-box">
+    “Thank you for contacting Valeris. We will follow up shortly.”
+  </div>
+
+  <button onclick="generateSummary()">Generate Summary</button>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* Tabs */
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+    tab.classList.add("active");
+    document.getElementById("tab-" + tab.dataset.tab).classList.add("active");
+  });
+});
+
+/* Guidance */
+const guidanceMap = {
+  "Insights and Data": "Used for analytics, forecasting, and decision support.",
+  "Patient Support": "Used for onboarding, affordability, and adherence.",
+  "HCP Engagement": "Used for provider education and outreach."
+};
+
+document.getElementById("topic").addEventListener("change", function() {
+  document.getElementById("guidance").innerText = guidanceMap[this.value];
+});
+
+/* Summary */
+function saveContext() {
+  document.getElementById("summary").innerText =
+    "Name: " + document.getElementById("name").value + "\n" +
+    "Company: " + document.getElementById("company").value;
+}
+
+function generateSummary() {
+  document.getElementById("summary").innerText += "\nNotes: " +
+    document.getElementById("notes").value;
+}
+
+</script>
+
 </body>
 </html>
