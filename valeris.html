@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valeris | Commercial Support Script</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --panel-soft: #f7fafc;
+      --border: #d9e2ec;
+      --text: #142033;
+      --muted: #5f7187;
+      --navy: #0f1f3d;
+      --blue: #2f80ff;
+      --blue-dark: #1f63cc;
+      --teal: #14b8a6;
+      --teal-soft: #e8fbf8;
+      --shadow: 0 14px 36px rgba(17, 24, 39, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(47, 128, 255, 0.10), transparent 24%),
+        linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
+      color: var(--text);
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      padding: 18px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      background: linear-gradient(135deg, #ffffff 0%, #f7fbff 100%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 18px 22px;
+      margin-bottom: 18px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .logo-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 220px;
+      height: 68px;
+      padding: 0 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--navy), #162a54 58%, #20408a 100%);
+      box-shadow: 0 12px 24px rgba(15, 31, 61, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-card::before,
+    .logo-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .logo-card::before {
+      width: 120px;
+      height: 120px;
+      right: -34px;
+      top: -42px;
+    }
+
+    .logo-card::after {
+      width: 78px;
+      height: 78px;
+      left: -18px;
+      bottom: -28px;
+    }
+
+    .logo-wordmark {
+      position: relative;
+      z-index: 1;
+      font-size: 1.9rem;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+    }
+
+    .logo-accent {
+      color: #6fb6ff;
+    }
+
+    .brand-copy h1 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .brand-copy p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      max-width: 62ch;
+      font-size: 0.95rem;
+    }
+
+    .status-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .pill-live {
+      background: var(--teal-soft);
+      color: #0b7b6d;
+      border-color: #b8eee6;
+    }
+
+    .pill-team {
+      background: #edf4ff;
+      color: var(--blue-dark);
+      border-color: #cfe1ff;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 18px;
+    }
+
+    .panel,
+    .workspace-panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar .panel {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .panel-title,
+    .workspace-title {
+      margin: 0 0 14px;
+      font-size: 1rem;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--navy);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 92px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font: inherit;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(47, 128, 255, 0.18);
+    }
+
+    .btn-secondary {
+      background: #eef4fb;
+      color: var(--navy);
+      border: 1px solid var(--border);
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .summary-box {
+      min-height: 150px;
+      border: 1px dashed #bfd1e1;
+      border-radius: 14px;
+      background: var(--panel-soft);
+      padding: 12px;
+      color: var(--muted);
+      white-space: pre-line;
+      font-size: 0.88rem;
+    }
+
+    .workspace-panel {
+      padding: 18px;
+    }
+
+    .hero-strip {
+      display: grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .hero-card,
+    .metrics-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(135deg, #ffffff 0%, #f7fbff 100%);
+      padding: 16px;
+    }
+
+    .hero-card h2 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+      color: var(--navy);
+    }
+
+    .hero-card p,
+    .metrics-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .metric {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fff;
+      margin-bottom: 14px;
+    }
+
+    .script-box {
+      border: 1px solid #cde0ff;
+      background: linear-gradient(180deg, #f4f9ff 0%, #ffffff 100%);
+      border-left: 4px solid var(--blue);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .script-box p {
+      margin: 0;
+    }
+
+    .topic-guidance {
+      display: grid;
+      gap: 12px;
+    }
+
+    .guidance-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      background: var(--panel-soft);
+    }
+
+    .guidance-card h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+      color: var(--navy);
+    }
+
+    .guidance-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text);
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1050px) {
+      .main-grid,
+      .hero-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .status-wrap {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .app-shell {
+        padding: 12px;
+      }
+
+      .topbar {
+        padding: 16px;
+      }
+
+      .brand-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .logo-card {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .grid-2,
+      .quick-grid,
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="logo-card" aria-label="Valeris logo">
+          <div class="logo-wordmark">Vale<span class="logo-accent">r</span>is</div>
+        </div>
+        <div class="brand-copy">
+          <h1>Valeris Commercial Support Script</h1>
+          <p>Commercial intake for life sciences partner, patient support, provider engagement, and market access inquiries.</p>
+        </div>
+      </div>
+
+      <div class="status-wrap">
+        <div class="pill pill-live">Connected</div>
+        <div class="pill pill-team">Valeris Support Desk</div>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <aside class="sidebar">
+        <section class="panel">
+          <h2 class="panel-title">Caller Snapshot</h2>
+
+          <div class="field">
+            <label for="callerType">Caller Type</label>
+            <select id="callerType">
+              <option selected>Life Sciences Partner</option>
+              <option>Patient</option>
+              <option>Provider Office</option>
+              <option>Press / Media</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="contactName">Contact Name</label>
+            <input type="text" id="contactName" value="Megan Foster" />
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="companyName">Company / Organization</label>
+              <input type="text" id="companyName" value="NorthStar Bio" />
+            </div>
+            <div class="field">
+              <label for="callbackNumber">Callback Number</label>
+              <input type="text" id="callbackNumber" value="(555) 410-2288" />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="productStage">Lifecycle Stage</label>
+              <select id="productStage">
+                <option>Early Stage</option>
+                <option>Mid-to-Late Stage</option>
+                <option selected>Go-to-Market</option>
+                <option>In-Market Optimization</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="urgency">Urgency</label>
+              <select id="urgency">
+                <option>Standard</option>
+                <option>High</option>
+                <option>Critical</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-full" id="saveContextBtn" type="button">Save Snapshot</button>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel-title">Quick Route</h2>
+          <div class="quick-grid">
+            <button class="btn btn-secondary quick-fill" data-topic="Insights and Data" type="button">Insights</button>
+            <button class="btn btn-secondary quick-fill" data-topic="Market Access Intelligence" type="button">Market Access</button>
+            <button class="btn btn-secondary quick-fill" data-topic="Patient Support Services" type="button">Patient Support</button>
+            <button class="btn btn-secondary quick-fill" data-topic="HCP Engagement" type="button">HCP Engagement</button>
+            <button class="btn btn-secondary quick-fill" data-topic="Nursing Support Services" type="button">Nursing</button>
+            <button class="btn btn-secondary quick-fill" data-topic="General Inquiry" type="button">General</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel-title">Interaction Summary</h2>
+          <div class="summary-box" id="summaryBox">No summary yet.</div>
+        </section>
+      </aside>
+
+      <section class="workspace-panel">
+        <div class="hero-strip">
+          <div class="hero-card">
+            <h2>Transforming access into action</h2>
+            <p>Use this script to qualify commercial conversations, identify the right Valeris service line, and capture the information needed for a warm handoff or follow-up.</p>
+          </div>
+
+          <div class="metrics-card">
+            <p>Reference talking points</p>
+            <div class="metric-grid">
+              <div class="metric">
+                <strong>Insights</strong>
+                <span>Strategy & data</span>
+              </div>
+              <div class="metric">
+                <strong>Support</strong>
+                <span>Patient services</span>
+              </div>
+              <div class="metric">
+                <strong>Engagement</strong>
+                <span>Provider outreach</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="tab-opening" type="button">Opening</button>
+          <button class="tab" data-tab="tab-discovery" type="button">Discovery</button>
+          <button class="tab" data-tab="tab-solutions" type="button">Solutions Fit</button>
+          <button class="tab" data-tab="tab-notes" type="button">Notes</button>
+          <button class="tab" data-tab="tab-wrapup" type="button">Wrap-Up</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-opening">
+          <div class="card">
+            <h2 class="workspace-title">Opening Script</h2>
+            <div class="script-box">
+              <p>“Thank you for contacting Valeris. My name is <strong>Sarah</strong>. I’d be happy to help connect you with the right team. To make sure we route your inquiry appropriately, I’m going to capture a few details about your organization, your product or support need, and the type of assistance you’re looking for today.”</p>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="inquiryCategory">Inquiry Category</label>
+                <select id="inquiryCategory">
+                  <option value="">Select category</option>
+                  <option>Commercial Solutions</option>
+                  <option>Patient Inquiry</option>
+                  <option>Provider / HCP Inquiry</option>
+                  <option>Media / Press Inquiry</option>
+                  <option>General Contact</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="authStatus">Verification / Known Contact Status</label>
+                <select id="authStatus">
+                  <option>Known Contact</option>
+                  <option>Verified New Contact</option>
+                  <option>Unverified</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-discovery">
+          <div class="card">
+            <h2 class="workspace-title">Discovery Questions</h2>
+            <div class="script-box">
+              <p>“Can you tell me a bit about the challenge you’re trying to solve and where you are in the product or support journey?”</p>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="solutionTopic">Primary Solution Area</label>
+                <select id="solutionTopic">
+                  <option value="">Select a topic</option>
+                  <option>Insights and Data</option>
+                  <option>Strategy Consulting</option>
+                  <option>Market Access Intelligence</option>
+                  <option>Patient Support Services</option>
+                  <option>Patient Access and Affordability</option>
+                  <option>Nursing Support Services</option>
+                  <option>Patient Engagement and Adherence</option>
+                  <option>Virtual Clinical Trial Supply</option>
+                  <option>HCP Engagement</option>
+                  <option>Field Reimbursement Support</option>
+                  <option>Medical Science Liaisons</option>
+                  <option>Clinical Nurse Educators</option>
+                  <option>Institutional Sales Support</option>
+                  <option>General Inquiry</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="handoffNeed">Handoff Type</label>
+                <select id="handoffNeed">
+                  <option value="">Select handoff</option>
+                  <option>Warm Transfer</option>
+                  <option>Follow-Up Requested</option>
+                  <option>Needs Triage Review</option>
+                  <option>Information Only</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="businessNeed">Business Need / Challenge</label>
+              <textarea id="businessNeed" placeholder="Capture the caller's stated need, challenge, product context, patient support objective, provider engagement goal, or data / market access request."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-solutions">
+          <div class="card">
+            <h2 class="workspace-title">Valeris Solutions Fit</h2>
+            <div class="topic-guidance" id="topicGuidance">
+              <div class="guidance-card">
+                <h3>Select a solution area</h3>
+                <p>Choose a Primary Solution Area in the Discovery tab to load suggested qualification questions and positioning guidance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-notes">
+          <div class="card">
+            <h2 class="workspace-title">Interaction Notes</h2>
+
+            <div class="field">
+              <label for="keyStakeholders">Key Stakeholders Mentioned</label>
+              <textarea id="keyStakeholders" placeholder="Names, roles, teams, brand, therapy area, or partner groups mentioned on the call."></textarea>
+            </div>
+
+            <div class="field">
+              <label for="actionsTaken">Actions Taken</label>
+              <textarea id="actionsTaken" placeholder="Document any routing, information provided, commitments made, or teams contacted."></textarea>
+            </div>
+
+            <div class="field">
+              <label for="nextSteps">Next Steps</label>
+              <textarea id="nextSteps" placeholder="Document expected follow-up, owner, timing, and any promised outreach."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-wrapup">
+          <div class="card">
+            <h2 class="workspace-title">Wrap-Up</h2>
+            <div class="script-box">
+              <p>“Thank you for contacting Valeris. I’ve documented your inquiry and aligned it to the appropriate team or next step. We appreciate the opportunity to support you.”</p>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="disposition">Disposition</label>
+                <select id="disposition">
+                  <option value="">Select disposition</option>
+                  <option>Warm Transferred</option>
+                  <option>Routed for Follow-Up</option>
+                  <option>Resolved on Contact</option>
+                  <option>Pending Internal Review</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="priorityTag">Priority Tag</label>
+                <select id="priorityTag">
+                  <option>Standard</option>
+                  <option>Leadership Visibility</option>
+                  <option>Patient Impact</option>
+                  <option>Launch-Critical</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="cta-row">
+              <button class="btn btn-primary" id="generateSummaryBtn" type="button">Generate Summary</button>
+              <button class="btn btn-secondary" id="clearAllBtn" type="button">Clear All</button>
+            </div>
+
+            <div class="note">Tip: this version is meant for a commercial / partner-facing Valeris workflow, not a generic HR script.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const tabPanels = document.querySelectorAll(".tab-panel");
+    const solutionTopic = document.getElementById("solutionTopic");
+    const topicGuidance = document.getElementById("topicGuidance");
+    const quickFillButtons = document.querySelectorAll(".quick-fill");
+    const summaryBox = document.getElementById("summaryBox");
+    const saveContextBtn = document.getElementById("saveContextBtn");
+    const generateSummaryBtn = document.getElementById("generateSummaryBtn");
+    const clearAllBtn = document.getElementById("clearAllBtn");
+
+    const guidanceMap = {
+      "Insights and Data": {
+        intro: "Use this path when the caller is seeking strategic insight, data-backed decision support, forecasting context, or broader commercialization guidance.",
+        questions: [
+          "What decision are you trying to inform?",
+          "What therapy area, product, or market segment is in scope?",
+          "Do you need ongoing intelligence, a point-in-time analysis, or advisory support?",
+          "Are there deadlines tied to launch planning, access strategy, or portfolio decisions?"
+        ],
+        positioning: "Valeris can align insight generation with commercialization decisions so the caller is not just receiving data, but decision-ready direction."
+      },
+      "Strategy Consulting": {
+        intro: "Use this path for higher-level commercialization planning, launch readiness, portfolio strategy, or complex market-entry questions.",
+        questions: [
+          "Is this initiative pre-launch, launch, or in-market optimization?",
+          "What business objective matters most right now?",
+          "What internal teams are involved in the decision?",
+          "What would success look like over the next 3 to 12 months?"
+        ],
+        positioning: "Position Valeris as a partner that can connect strategy to execution across the product and patient journeys."
+      },
+      "Market Access Intelligence": {
+        intro: "Use this path when the caller needs payer, reimbursement, formulary, or access intelligence.",
+        questions: [
+          "Are you focused on coverage, reimbursement, coding, or policy intelligence?",
+          "Is this need national, regional, or state-specific?",
+          "Are there access barriers already affecting launch or in-market performance?",
+          "Is the request tied to specific payers, plans, or channels?"
+        ],
+        positioning: "Valeris can support access strategy with intelligence that helps reduce uncertainty around reimbursement and market access decisions."
+      },
+      "Patient Support Services": {
+        intro: "Use this path for hub, support program, affordability, patient onboarding, or adherence-oriented questions.",
+        questions: [
+          "Is the need tied to patient onboarding, affordability, adherence, or broader support design?",
+          "Are there current friction points delaying therapy start?",
+          "Does the caller need program optimization or a new program build?",
+          "What patient experience outcomes are most important?"
+        ],
+        positioning: "Valeris can help connect services, technology, and workflows to improve the patient experience and time to therapy."
+      },
+      "Patient Access and Affordability": {
+        intro: "Use this path for affordability programs, access barriers, benefits navigation, and reimbursement support design.",
+        questions: [
+          "What access barrier is most urgent right now?",
+          "Are affordability concerns impacting start, stay, or continuation rates?",
+          "Is this tied to a specific channel or patient population?",
+          "Do you need ongoing support operations or strategic design help?"
+        ],
+        positioning: "This conversation fits when the caller needs to make treatment access easier and more scalable for patients."
+      },
+      "Nursing Support Services": {
+        intro: "Use this path when clinical support, education, or nurse-led engagement is central to the need.",
+        questions: [
+          "Is the request related to education, onboarding, administration, or adherence support?",
+          "What role should nursing support play in the patient journey?",
+          "Is this for a specialty therapy or complex treatment pathway?",
+          "What handoff or coordination points matter most?"
+        ],
+        positioning: "Valeris can support nurse-enabled experiences that improve confidence, continuity, and patient outcomes."
+      },
+      "Patient Engagement and Adherence": {
+        intro: "Use this path for omnichannel engagement, digital patient touchpoints, and retention or adherence goals.",
+        questions: [
+          "Where in the journey are patients dropping off?",
+          "What channels are being used today?",
+          "Do you need digital messaging, service orchestration, or journey redesign?",
+          "What adherence or persistence goals are you trying to improve?"
+        ],
+        positioning: "This is a fit when the caller wants a more connected, patient-friendly experience that supports long-term engagement."
+      },
+      "Virtual Clinical Trial Supply": {
+        intro: "Use this path for decentralized trial support or logistics-related inquiry capture.",
+        questions: [
+          "Is the inquiry tied to an active study or early planning?",
+          "What supply or participant support challenge needs to be solved?",
+          "Are there timing, geography, or protocol constraints?",
+          "Who else is involved in the trial operations workflow?"
+        ],
+        positioning: "Valeris can help align support logistics and patient-facing coordination in virtual trial environments."
+      },
+      "HCP Engagement": {
+        intro: "Use this path when the need is to educate, activate, or support providers and provider offices.",
+        questions: [
+          "Is the goal awareness, education, access support, or ongoing engagement?",
+          "Are you targeting a defined provider segment or broader audience?",
+          "Is this field, virtual, or hybrid engagement?",
+          "What action do you want providers to take after engagement?"
+        ],
+        positioning: "Position Valeris as a partner that can drive structured outreach and meaningful provider engagement."
+      },
+      "Field Reimbursement Support": {
+        intro: "Use this path when reimbursement field support or office-level access support is in focus.",
+        questions: [
+          "Are provider offices struggling with access, reimbursement, or process navigation?",
+          "Do you need field support, education, or escalation workflows?",
+          "Is the challenge localized or broad-based?",
+          "What payer or reimbursement patterns are surfacing?"
+        ],
+        positioning: "Valeris can help bridge reimbursement complexity with targeted support for provider-facing teams."
+      },
+      "Medical Science Liaisons": {
+        intro: "Use this path when scientific engagement and medical field support are relevant.",
+        questions: [
+          "Is the inquiry commercial, medical, or cross-functional in nature?",
+          "Which stakeholders need scientific engagement?",
+          "Is the focus launch readiness, education, or ongoing field strategy?",
+          "What therapeutic complexity is involved?"
+        ],
+        positioning: "This path fits when the support model needs a stronger scientific interface with the market."
+      },
+      "Clinical Nurse Educators": {
+        intro: "Use this path for education-heavy clinical support programs.",
+        questions: [
+          "What education or training gap is being addressed?",
+          "Who is the target audience: patients, caregivers, or clinicians?",
+          "Is support needed at initiation, maintenance, or a transition point?",
+          "How will success be measured?"
+        ],
+        positioning: "Valeris can support programs that depend on high-touch clinical education and continuity."
+      },
+      "Institutional Sales Support": {
+        intro: "Use this path when institutional account support, health-system navigation, or sales enablement is relevant.",
+        questions: [
+          "What type of institution or health system is involved?",
+          "Is the support need strategic, operational, or field-facing?",
+          "Are there access, account, or coordination barriers?",
+          "What outcome is expected from the institutional engagement?"
+        ],
+        positioning: "This is the right path when the caller needs structured institutional support tied to commercialization objectives."
+      },
+      "General Inquiry": {
+        intro: "Use this path when the request is broad, early-stage, or does not yet map cleanly to one service line.",
+        questions: [
+          "What prompted your outreach today?",
+          "What team or function are you hoping to reach?",
+          "Is there a product, patient population, or commercial objective in scope?",
+          "Would you prefer information, a follow-up, or a consultation?"
+        ],
+        positioning: "Keep the intake broad, then route based on the strongest emerging theme."
+      }
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.tab;
+        tabs.forEach((t) => t.classList.remove("active"));
+        tabPanels.forEach((panel) => panel.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(target).classList.add("active");
+      });
+    });
+
+    quickFillButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        solutionTopic.value = button.dataset.topic;
+        renderGuidance(button.dataset.topic);
+        activateTab("tab-solutions");
+      });
+    });
+
+    solutionTopic.addEventListener("change", () => {
+      renderGuidance(solutionTopic.value);
+    });
+
+    function activateTab(id) {
+      tabs.forEach((t) => t.classList.remove("active"));
+      tabPanels.forEach((panel) => panel.classList.remove("active"));
+      document.querySelector(`[data-tab="${id}"]`).classList.add("active");
+      document.getElementById(id).classList.add("active");
+    }
+
+    function renderGuidance(topic) {
+      const data = guidanceMap[topic];
+      if (!data) {
+        topicGuidance.innerHTML = `
+          <div class="guidance-card">
+            <h3>Select a solution area</h3>
+            <p>Choose a Primary Solution Area in the Discovery tab to load suggested qualification questions and positioning guidance.</p>
+          </div>
+        `;
+        return;
+      }
+
+      topicGuidance.innerHTML = `
+        <div class="guidance-card">
+          <h3>${topic}</h3>
+          <p>${data.intro}</p>
+        </div>
+        <div class="guidance-card">
+          <h3>Suggested Qualification Questions</h3>
+          <ul>${data.questions.map((q) => `<li>${q}</li>`).join("")}</ul>
+        </div>
+        <div class="guidance-card">
+          <h3>Suggested Positioning</h3>
+          <p>${data.positioning}</p>
+        </div>
+      `;
+    }
+
+    saveContextBtn.addEventListener("click", () => {
+      const callerType = document.getElementById("callerType").value;
+      const contactName = document.getElementById("contactName").value.trim();
+      const companyName = document.getElementById("companyName").value.trim();
+      const callbackNumber = document.getElementById("callbackNumber").value.trim();
+      const productStage = document.getElementById("productStage").value;
+      const urgency = document.getElementById("urgency").value;
+
+      summaryBox.textContent =
+        `Caller Type: ${callerType || "N/A"}\n` +
+        `Contact: ${contactName || "N/A"}\n` +
+        `Organization: ${companyName || "N/A"}\n` +
+        `Callback: ${callbackNumber || "N/A"}\n` +
+        `Lifecycle Stage: ${productStage || "N/A"}\n` +
+        `Urgency: ${urgency || "N/A"}`;
+    });
+
+    generateSummaryBtn.addEventListener("click", () => {
+      const callerType = document.getElementById("callerType").value;
+      const contactName = document.getElementById("contactName").value.trim();
+      const companyName = document.getElementById("companyName").value.trim();
+      const callbackNumber = document.getElementById("callbackNumber").value.trim();
+      const productStage = document.getElementById("productStage").value;
+      const urgency = document.getElementById("urgency").value;
+      const inquiryCategory = document.getElementById("inquiryCategory").value;
+      const authStatus = document.getElementById("authStatus").value;
+      const solutionArea = document.getElementById("solutionTopic").value;
+      const handoffNeed = document.getElementById("handoffNeed").value;
+      const businessNeed = document.getElementById("businessNeed").value.trim();
+      const keyStakeholders = document.getElementById("keyStakeholders").value.trim();
+      const actionsTaken = document.getElementById("actionsTaken").value.trim();
+      const nextSteps = document.getElementById("nextSteps").value.trim();
+      const disposition = document.getElementById("disposition").value;
+      const priorityTag = document.getElementById("priorityTag").value;
+
+      summaryBox.textContent =
+        `Caller Type: ${callerType || "N/A"}\n` +
+        `Contact: ${contactName || "N/A"}\n` +
+        `Organization: ${companyName || "N/A"}\n` +
+        `Callback: ${callbackNumber || "N/A"}\n` +
+        `Lifecycle Stage: ${productStage || "N/A"}\n` +
+        `Urgency: ${urgency || "N/A"}\n` +
+        `Inquiry Category: ${inquiryCategory || "N/A"}\n` +
+        `Contact Status: ${authStatus || "N/A"}\n` +
+        `Solution Area: ${solutionArea || "N/A"}\n` +
+        `Handoff Type: ${handoffNeed || "N/A"}\n` +
+        `Disposition: ${disposition || "N/A"}\n` +
+        `Priority Tag: ${priorityTag || "N/A"}\n\n` +
+        `Business Need:\n${businessNeed || "N/A"}\n\n` +
+        `Key Stakeholders:\n${keyStakeholders || "N/A"}\n\n` +
+        `Actions Taken:\n${actionsTaken || "N/A"}\n\n` +
+        `Next Steps:\n${nextSteps || "N/A"}`;
+    });
+
+    clearAllBtn.addEventListener("click", () => {
+      document.querySelectorAll("input, select, textarea").forEach((field) => {
+        if (field.tagName === "SELECT") {
+          field.selectedIndex = 0;
+        } else {
+          field.value = "";
+        }
+      });
+
+      document.getElementById("callerType").selectedIndex = 0;
+      document.getElementById("productStage").selectedIndex = 2;
+      document.getElementById("urgency").selectedIndex = 0;
+      document.getElementById("authStatus").selectedIndex = 0;
+      document.getElementById("priorityTag").selectedIndex = 0;
+
+      topicGuidance.innerHTML = `
+        <div class="guidance-card">
+          <h3>Select a solution area</h3>
+          <p>Choose a Primary Solution Area in the Discovery tab to load suggested qualification questions and positioning guidance.</p>
+        </div>
+      `;
+
+      summaryBox.textContent = "No summary yet.";
+      activateTab("tab-opening");
+    });
+  </script>
+</body>
+</html>
