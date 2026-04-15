@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mercy Health Nurse Script</title>
+  <style>
+    :root {
+      --bg: #f3f6f9;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --border: #d8e1e8;
+      --text: #1f2937;
+      --muted: #667085;
+      --primary: #0b6e4f;
+      --primary-dark: #08563e;
+      --accent: #e7f4ef;
+      --alert: #fff7ed;
+      --alert-border: #fdba74;
+      --shadow: 0 10px 24px rgba(16, 24, 40, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      padding: 18px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 12px 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .brand-block h1 {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.1;
+    }
+
+    .brand-block p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .status-pill {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .main-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 18px;
+    }
+
+    .panel,
+    .content-panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .content-panel {
+      padding: 18px;
+    }
+
+    .panel h2,
+    .content-panel h2 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 1rem;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: white;
+      font: inherit;
+      color: var(--text);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .readonly {
+      background: var(--panel-soft);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .script-box {
+      background: var(--panel-soft);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .script-box p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .highlight-box {
+      background: var(--alert);
+      border: 1px solid var(--alert-border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .highlight-box h3 {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .detail-card {
+      background: var(--panel-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .detail-card strong {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .detail-card span {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #eef2f6;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .summary-box {
+      min-height: 180px;
+      background: var(--panel-soft);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      white-space: pre-line;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .checklist {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .checklist li {
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 960px) {
+      .main-layout,
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark">MH</div>
+        <div>
+          <h1>Mercy Health</h1>
+          <p>Nurse Practice Support Script</p>
+        </div>
+      </div>
+
+      <div class="status-pill">Patient Verified</div>
+    </header>
+
+    <main class="main-layout">
+      <aside>
+        <section class="panel">
+          <h2>Patient Snapshot</h2>
+
+          <div class="field">
+            <label for="patientName">Patient Name</label>
+            <input class="readonly" type="text" id="patientName" value="Allison Wheeler" />
+          </div>
+
+          <div class="field">
+            <label for="dob">DOB</label>
+            <input class="readonly" type="text" id="dob" value="July 26, 1979" />
+          </div>
+
+          <div class="field">
+            <label for="mrn">MRN</label>
+            <input class="readonly" type="text" id="mrn" value="32959322325" />
+          </div>
+
+          <div class="field">
+            <label for="hipaaStatus">Authentication / HIPAA Verification</label>
+            <select id="hipaaStatus">
+              <option selected>Authenticated / HIPAA Verified</option>
+              <option>Partially Verified</option>
+              <option>Unable to Verify</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Procedure Details</h2>
+
+          <div class="field">
+            <label for="procedure">Procedure</label>
+            <input class="readonly" type="text" id="procedure" value="Colonoscopy" />
+          </div>
+
+          <div class="field">
+            <label for="apptDateTime">Appointment Date / Time</label>
+            <input class="readonly" type="text" id="apptDateTime" value="May 13, 2026 at 2:30 PM" />
+          </div>
+
+          <div class="field">
+            <label for="location">Location</label>
+            <input class="readonly" type="text" id="location" value="Chandler East" />
+          </div>
+
+          <div class="field">
+            <label for="prepStatus">Prep Status</label>
+            <select id="prepStatus">
+              <option selected>Prep Completed</option>
+              <option>Prep In Progress</option>
+              <option>Prep Not Started</option>
+              <option>Prep Incomplete</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Call Summary</h2>
+          <div class="summary-box" id="summaryBox">No summary generated yet.</div>
+        </section>
+      </aside>
+
+      <section class="content-panel">
+        <div class="tabs">
+          <button class="tab active" data-tab="tab-opening" type="button">Opening</button>
+          <button class="tab" data-tab="tab-assessment" type="button">Assessment</button>
+          <button class="tab" data-tab="tab-guidance" type="button">Guidance</button>
+          <button class="tab" data-tab="tab-wrapup" type="button">Wrap-Up</button>
+        </div>
+
+        <div class="tab-content active" id="tab-opening">
+          <h2>Opening Script</h2>
+
+          <div class="script-box">
+            <p>
+              “Hello, this is Mercy Health. My name is <strong>[Nurse Name]</strong>. I have confirmed that the patient has been authenticated and HIPAA verified. I’m reviewing your upcoming colonoscopy appointment and current symptoms so we can determine the best next step.”
+            </p>
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail-card">
+              <strong>Patient</strong>
+              <span>Allison Wheeler</span>
+            </div>
+            <div class="detail-card">
+              <strong>DOB</strong>
+              <span>July 26, 1979</span>
+            </div>
+            <div class="detail-card">
+              <strong>MRN</strong>
+              <span>32959322325</span>
+            </div>
+            <div class="detail-card">
+              <strong>Symptom Reported</strong>
+              <span>Dizziness</span>
+            </div>
+          </div>
+
+          <div class="highlight-box">
+            <h3>Appointment on File</h3>
+            <div><strong>Procedure:</strong> Colonoscopy</div>
+            <div><strong>Date/Time:</strong> May 13, 2026 at 2:30 PM</div>
+            <div><strong>Location:</strong> Chandler East</div>
+            <div><strong>Prep Status:</strong> Prep completed</div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-assessment">
+          <h2>Nursing Assessment</h2>
+
+          <div class="script-box">
+            <p>
+              “I see that your prep is completed. Since you’re reporting dizziness, I’d like to ask a few quick questions to better understand how you’re feeling before your procedure.”
+            </p>
+          </div>
+
+          <ul class="checklist">
+            <li>When did the dizziness start?</li>
+            <li>Is the dizziness constant or does it come and go?</li>
+            <li>Any fainting, vomiting, chest pain, or shortness of breath?</li>
+            <li>Has the patient been able to tolerate fluids?</li>
+            <li>Any concern for dehydration after prep completion?</li>
+          </ul>
+
+          <div class="field" style="margin-top: 14px;">
+            <label for="nurseNotes">Assessment Notes</label>
+            <textarea id="nurseNotes" placeholder="Document symptom details, hydration concerns, severity, and any escalation decision..."></textarea>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-guidance">
+          <h2>Suggested Guidance</h2>
+
+          <div class="highlight-box">
+            <h3>Use Nurse Judgment / Escalation Path</h3>
+            <p style="margin: 0;">
+              Dizziness after colonoscopy prep may require assessment for dehydration or other acute symptoms. Review severity, associated symptoms, and whether the patient can safely continue prep/procedure plan or needs provider review.
+            </p>
+          </div>
+
+          <div class="script-box">
+            <p>
+              “Because you’re feeling dizzy, I’m going to document that symptom carefully and determine whether we should continue with standard instructions, notify the provider, or have you evaluated more urgently.”
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="dispositionGuide">Recommended Action</label>
+            <select id="dispositionGuide">
+              <option selected>Review with provider / nurse escalation</option>
+              <option>Reinforce hydration and monitor</option>
+              <option>Urgent evaluation recommended</option>
+              <option>Proceed with standard instructions</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-wrapup">
+          <h2>Wrap-Up</h2>
+
+          <div class="script-box">
+            <p>
+              “I’ve documented that you are HIPAA verified, reviewed your upcoming colonoscopy appointment at Chandler East on May 13, 2026 at 2:30 PM, confirmed your prep is completed, and noted your dizziness. We’ll use this information to determine the appropriate next step.”
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="finalDisposition">Final Disposition</label>
+            <select id="finalDisposition">
+              <option selected>Sent for nurse/provider review</option>
+              <option>Home care guidance provided</option>
+              <option>Urgent escalation advised</option>
+              <option>Procedure plan unchanged</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="wrapNotes">Wrap-Up Notes</label>
+            <textarea id="wrapNotes" placeholder="Enter final call outcome and any instructions provided..."></textarea>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="generateSummaryBtn" type="button">Generate Summary</button>
+            <button class="btn btn-secondary" id="clearNotesBtn" type="button">Clear Notes</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const tabContents = document.querySelectorAll(".tab-content");
+    const summaryBox = document.getElementById("summaryBox");
+    const generateSummaryBtn = document.getElementById("generateSummaryBtn");
+    const clearNotesBtn = document.getElementById("clearNotesBtn");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.tab;
+
+        tabs.forEach((t) => t.classList.remove("active"));
+        tabContents.forEach((content) => content.classList.remove("active"));
+
+        tab.classList.add("active");
+        document.getElementById(target).classList.add("active");
+      });
+    });
+
+    generateSummaryBtn.addEventListener("click", () => {
+      const hipaaStatus = document.getElementById("hipaaStatus").value;
+      const prepStatus = document.getElementById("prepStatus").value;
+      const dispositionGuide = document.getElementById("dispositionGuide").value;
+      const finalDisposition = document.getElementById("finalDisposition").value;
+      const nurseNotes = document.getElementById("nurseNotes").value.trim();
+      const wrapNotes = document.getElementById("wrapNotes").value.trim();
+
+      summaryBox.textContent =
+        `Patient: Allison Wheeler\n` +
+        `DOB: July 26, 1979\n` +
+        `MRN: 32959322325\n` +
+        `HIPAA Status: ${hipaaStatus}\n` +
+        `Appointment: Colonoscopy at 2:30 PM on May 13, 2026\n` +
+        `Location: Chandler East\n` +
+        `Prep Status: ${prepStatus}\n` +
+        `Reported Symptom: Dizziness\n` +
+        `Recommended Action: ${dispositionGuide}\n` +
+        `Final Disposition: ${finalDisposition}\n\n` +
+        `Assessment Notes:\n${nurseNotes || "N/A"}\n\n` +
+        `Wrap-Up Notes:\n${wrapNotes || "N/A"}`;
+    });
+
+    clearNotesBtn.addEventListener("click", () => {
+      document.getElementById("nurseNotes").value = "";
+      document.getElementById("wrapNotes").value = "";
+      summaryBox.textContent = "No summary generated yet.";
+    });
+  </script>
+</body>
+</html>
