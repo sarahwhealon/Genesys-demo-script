@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>University Hospitals Diabetes Care Script</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --border: #d9e2ec;
+      --text: #142033;
+      --muted: #5f7187;
+      --uh-navy: #0f2d52;
+      --uh-blue: #1f5aa6;
+      --uh-gold: #c79a2b;
+      --success-bg: #eaf8ef;
+      --success-border: #22a35a;
+      --warning-bg: #fff7e8;
+      --warning-border: #f0b24a;
+      --danger-bg: #fdeeee;
+      --danger-border: #d95c5c;
+      --shadow: 0 12px 28px rgba(17, 24, 39, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(31, 90, 166, 0.08), transparent 24%),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+
+    .app-shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      background: linear-gradient(135deg, var(--uh-navy), #1a406f);
+      color: white;
+      border-radius: 20px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .uh-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--uh-gold), #dfb34e);
+      color: var(--uh-navy);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.45rem;
+      letter-spacing: -0.04em;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.28);
+    }
+
+    .brand-text h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.15;
+    }
+
+    .brand-text p {
+      margin: 4px 0 0;
+      font-size: 0.85rem;
+      color: #dbe8fb;
+    }
+
+    .status-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--uh-navy);
+      color: white;
+      border-color: var(--uh-navy);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .section-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .script-box {
+      background: #eef5ff;
+      border: 1px solid #d8e6fb;
+      border-left: 4px solid var(--uh-blue);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .script-box p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .verification-box {
+      background: var(--success-bg);
+      border: 2px solid var(--success-border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      color: #17663c;
+      font-weight: 700;
+    }
+
+    .patient-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .detail-card {
+      background: var(--panel-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .detail-card strong {
+      display: block;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .detail-card span {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .flag-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .flag {
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+
+    .flag-warning {
+      background: var(--warning-bg);
+      border-color: var(--warning-border);
+      color: #8a5a00;
+    }
+
+    .flag-danger {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: #8c2222;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font: inherit;
+      color: var(--text);
+      background: white;
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 95px;
+    }
+
+    .readonly {
+      background: var(--panel-soft);
+    }
+
+    .med-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .med-list li {
+      margin-bottom: 6px;
+    }
+
+    .checklist {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .checklist li {
+      margin-bottom: 8px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .btn-primary {
+      background: var(--uh-blue);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #eef2f6;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .summary-box {
+      margin-top: 14px;
+      min-height: 180px;
+      background: var(--panel-soft);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      white-space: pre-line;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 780px) {
+      .patient-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="uh-logo">UH</div>
+        <div class="brand-text">
+          <h1>University Hospitals</h1>
+          <p>Diabetes Care Practice Script</p>
+        </div>
+      </div>
+      <div class="status-pill">Diabetes Care Follow-Up</div>
+    </header>
+
+    <main class="panel">
+      <div class="tabs">
+        <button class="tab active" data-tab="tab-opening" type="button">Opening</button>
+        <button class="tab" data-tab="tab-assessment" type="button">Assessment</button>
+        <button class="tab" data-tab="tab-wrapup" type="button">Wrap-Up</button>
+      </div>
+
+      <div class="tab-content active" id="tab-opening">
+        <div class="section-card">
+          <div class="script-box">
+            <p>
+              “Hello, this is University Hospitals Diabetes Care. My name is <strong>Sarah</strong>. I’m reviewing your upcoming appointment and diabetes care items so we can make sure you have what you need before your visit.”
+            </p>
+          </div>
+
+          <div class="verification-box">
+            ✔ Patient authenticated / verified
+          </div>
+
+          <div class="patient-grid">
+            <div class="detail-card">
+              <strong>Patient</strong>
+              <span>Allison Wheeler</span>
+            </div>
+            <div class="detail-card">
+              <strong>Appointment</strong>
+              <span>May 12, 2026 at 9:00 AM</span>
+            </div>
+            <div class="detail-card">
+              <strong>Location</strong>
+              <span>Euclid Ave</span>
+            </div>
+            <div class="detail-card">
+              <strong>Care Gap</strong>
+              <span>Last A1C reading due / not recent</span>
+            </div>
+          </div>
+
+          <div class="flag-row">
+            <div class="flag flag-warning">Care Gap</div>
+            <div class="flag flag-warning">No Recent A1C</div>
+            <div class="flag flag-danger">Fatigue</div>
+            <div class="flag flag-danger">Medication Concern</div>
+          </div>
+
+          <div class="field">
+            <label>Medication List</label>
+            <div class="detail-card">
+              <ul class="med-list">
+                <li>Metformin 1000 mg twice daily</li>
+                <li>Lantus 18 units nightly</li>
+                <li>Ozempic 0.5 mg weekly</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-assessment">
+        <div class="section-card">
+          <div class="script-box">
+            <p>
+              “I see a diabetes care gap for your most recent A1C, and I also want to review your fatigue and medication concern before your appointment.”
+            </p>
+          </div>
+
+          <ul class="checklist">
+            <li>Confirm whether the patient has had an A1C drawn recently outside UH.</li>
+            <li>Ask when the fatigue started and whether it is worsening.</li>
+            <li>Clarify the medication concern: side effects, missed doses, refill issue, or cost/access problem.</li>
+            <li>Review whether blood sugars have been running high or low.</li>
+            <li>Determine whether provider review is needed before the scheduled visit.</li>
+          </ul>
+
+          <div class="field" style="margin-top: 14px;">
+            <label for="assessmentNotes">Assessment Notes</label>
+            <textarea id="assessmentNotes" placeholder="Document fatigue details, recent glucose concerns, A1C status, and medication issue..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-wrapup">
+        <div class="section-card">
+          <div class="script-box">
+            <p>
+              “I’ve documented that you are verified, reviewed your upcoming University Hospitals Diabetes Care appointment on May 12, 2026 at 9:00 AM at the Euclid Ave location, and noted the care gap, fatigue, and medication concern so the team can address those items.”
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="disposition">Disposition</label>
+            <select id="disposition">
+              <option selected>Flagged for provider review</option>
+              <option>Reminder only</option>
+              <option>Labs needed before visit</option>
+              <option>Medication call-back needed</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="wrapNotes">Wrap-Up Notes</label>
+            <textarea id="wrapNotes" placeholder="Add final instructions, follow-up plan, or anything communicated to the patient..."></textarea>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="generateSummaryBtn" type="button">Generate Summary</button>
+            <button class="btn btn-secondary" id="clearNotesBtn" type="button">Clear Notes</button>
+          </div>
+
+          <div class="summary-box" id="summaryBox">No summary generated yet.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const tabContents = document.querySelectorAll(".tab-content");
+    const generateSummaryBtn = document.getElementById("generateSummaryBtn");
+    const clearNotesBtn = document.getElementById("clearNotesBtn");
+    const summaryBox = document.getElementById("summaryBox");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.tab;
+        tabs.forEach((t) => t.classList.remove("active"));
+        tabContents.forEach((content) => content.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(target).classList.add("active");
+      });
+    });
+
+    generateSummaryBtn.addEventListener("click", () => {
+      const assessmentNotes = document.getElementById("assessmentNotes").value.trim();
+      const disposition = document.getElementById("disposition").value;
+      const wrapNotes = document.getElementById("wrapNotes").value.trim();
+
+      summaryBox.textContent =
+        `Patient: Allison Wheeler\n` +
+        `Authenticated: Yes\n` +
+        `Service: University Hospitals Diabetes Care\n` +
+        `Appointment: May 12, 2026 at 9:00 AM\n` +
+        `Location: Euclid Ave\n` +
+        `Care Gap: Last A1C reading due / no recent A1C\n` +
+        `Flags: Care Gap, No Recent A1C, Fatigue, Medication Concern\n` +
+        `Medication List: Metformin 1000 mg BID; Lantus 18 units nightly; Ozempic 0.5 mg weekly\n` +
+        `Disposition: ${disposition}\n\n` +
+        `Assessment Notes:\n${assessmentNotes || "N/A"}\n\n` +
+        `Wrap-Up Notes:\n${wrapNotes || "N/A"}`;
+    });
+
+    clearNotesBtn.addEventListener("click", () => {
+      document.getElementById("assessmentNotes").value = "";
+      document.getElementById("wrapNotes").value = "";
+      document.getElementById("disposition").selectedIndex = 0;
+      summaryBox.textContent = "No summary generated yet.";
+    });
+  </script>
+</body>
+</html>
