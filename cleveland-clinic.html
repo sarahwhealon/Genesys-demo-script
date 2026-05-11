@@ -5,16 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cleveland Clinic Agent Script</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      padding: 8px 12px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+  </style>
 </head>
 <body>
   <div class="app-shell">
     <header class="topbar">
       <div class="brand-block">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/8/82/Cleveland_Clinic_logo.svg"
-          alt="Cleveland Clinic Logo"
-          class="logo-img"
-        />
+        <div class="logo-wrap">
+          <img
+            src="https://my.clevelandclinic.org/-/scassets/images/org/logo/logo-ccf.svg?h=48&hash=F5231F16526C9ED33D180771275ED4B7E42C2018&la=en&w=300"
+            alt="Cleveland Clinic Logo"
+            class="logo-img"
+          />
+        </div>
         <div>
           <h1>Cleveland Clinic</h1>
           <p>Employee Support Script</p>
@@ -115,7 +135,7 @@
           <div class="content-panel">
             <h2>Triage Questions</h2>
 
-            <div class="script-block">
+            <div class="script-box">
               <p>
                 “I can help route your request. Is your question related to benefits, payroll, leave, employee relations, policy, or another support matter?”
               </p>
