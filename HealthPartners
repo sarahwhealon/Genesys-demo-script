@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Health Partners Care Coordinator Script</title>
+
+<style>
+:root {
+  --bg: #f3f6f9;
+  --panel: #ffffff;
+  --border: #d8e1e8;
+  --text: #1f2937;
+  --muted: #667085;
+  --primary: #0b6e4f;
+  --accent: #e7f4ef;
+  --success-bg: #e6f9f0;
+  --success-border: #22c55e;
+  --shadow: 0 10px 24px rgba(16, 24, 40, 0.08);
+  --radius: 16px;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-shell {
+  padding: 18px;
+}
+
+.topbar {
+  background: white;
+  padding: 12px 18px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tab {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.tab.active {
+  background: var(--primary);
+  color: white;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.panel {
+  background: white;
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.script-box {
+  background: #eef6ff;
+  border-left: 4px solid var(--primary);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.field {
+  margin-bottom: 10px;
+}
+
+.field label {
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.summary {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  min-height: 140px;
+}
+
+/* HIPAA Highlight */
+.hipaa-box {
+  background: var(--success-bg);
+  border: 2px solid var(--success-border);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 12px;
+  font-weight: bold;
+  color: #166534;
+}
+
+button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+<div class="topbar">
+  <strong>Health Partners Care Coordinator Script</strong>
+</div>
+
+<div class="panel">
+
+<div class="tabs">
+  <div class="tab active" data-tab="1">Opening</div>
+  <div class="tab" data-tab="2">Assessment</div>
+  <div class="tab" data-tab="3">Wrap-Up</div>
+</div>
+
+<!-- OPENING -->
+<div id="tab-1" class="tab-content active">
+
+  <div class="script-box">
+    “Hello, this is Health Partners. My name is <strong>Sarah</strong>. I’m reviewing your upcoming appointment and symptoms so we can determine the best next step.”
+  </div>
+
+  <!-- HIPAA FIELD -->
+  <div class="hipaa-box">
+    ✔ Patient Authenticated / HIPAA Verified
+  </div>
+
+  <!-- PATIENT DETAILS -->
+  <div class="field">
+    <label>Patient</label>
+    <input value="Allison Wheeler" />
+  </div>
+
+  <div class="field">
+    <label>DOB</label>
+    <input value="July 26, 1979" />
+  </div>
+
+  <div class="field">
+    <label>MRN</label>
+    <input value="32959322325" />
+  </div>
+
+  <div class="field">
+    <label>Appointment</label>
+    <input value="July 27, 2026 at 2:00 PM - Portland South" />
+  </div>
+
+  <div class="field">
+    <label>Prep Status</label>
+    <input value="Prep Completed" />
+  </div>
+
+  <div class="field">
+    <label>Symptoms</label>
+    <input value="Anxiety" />
+  </div>
+
+</div>
+
+<!-- ASSESSMENT -->
+<div id="tab-2" class="tab-content">
+
+  <div class="script-box">
+    “Since you're experiencing anxiety, I’d like to ask a few quick questions.”
+  </div>
+
+  <textarea
+    id="notes"
+    placeholder="Document symptoms, severity, concerns, triggers, or additional details..."
+  ></textarea>
+
+</div>
+
+<!-- WRAP UP -->
+<div id="tab-3" class="tab-content">
+
+  <div class="script-box">
+    “Thank you. I’ve documented your information and we’ll determine the next step.”
+  </div>
+
+  <button onclick="generateSummary()">Generate Summary</button>
+
+  <div class="summary" id="summary">No summary yet.</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+const tabs = document.querySelectorAll(".tab");
+const contents = document.querySelectorAll(".tab-content");
+
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    tabs.forEach(t => t.classList.remove("active"));
+    contents.forEach(c => c.classList.remove("active"));
+
+    tab.classList.add("active");
+    document.getElementById("tab-" + tab.dataset.tab).classList.add("active");
+  });
+});
+
+function generateSummary() {
+  document.getElementById("summary").innerText =
+    "Patient: Allison Wheeler\n" +
+    "DOB: July 26, 1979\n" +
+    "MRN: 32959322325\n" +
+    "Appointment: July 27, 2026 at 2:00 PM - Portland South\n" +
+    "Prep: Completed\n" +
+    "Symptoms: Anxiety\n\nNotes:\n" +
+    document.getElementById("notes").value;
+}
+</script>
+
+</body>
+</html>
