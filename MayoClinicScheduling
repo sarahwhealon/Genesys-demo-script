@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mayo Clinic Care Coordinator Script</title>
+
+<style>
+:root {
+  --bg: #f3f6f9;
+  --panel: #ffffff;
+  --border: #d8e1e8;
+  --text: #1f2937;
+  --muted: #667085;
+  --primary: #005eb8;
+  --primary-dark: #004b93;
+  --accent: #eaf4fc;
+  --success-bg: #e6f9f0;
+  --success-border: #22c55e;
+  --shadow: 0 10px 24px rgba(16, 24, 40, 0.08);
+  --radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-shell {
+  padding: 18px;
+}
+
+.topbar {
+  background: white;
+  padding: 12px 18px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-text strong {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.brand-text span {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tab {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  background: white;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.tab.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.panel {
+  background: white;
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.script-box {
+  background: var(--accent);
+  border-left: 4px solid var(--primary);
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 0 8px 8px 0;
+  line-height: 1.5;
+}
+
+.field {
+  margin-bottom: 10px;
+}
+
+.field label {
+  display: block;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font: inherit;
+  color: var(--text);
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.summary {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  min-height: 140px;
+  white-space: pre-line;
+}
+
+/* Patient verification highlight */
+.hipaa-box {
+  background: var(--success-bg);
+  border: 2px solid var(--success-border);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 12px;
+  font-weight: bold;
+  color: #166534;
+}
+
+button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background: var(--primary-dark);
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .logo-img {
+    height: 40px;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+<div class="topbar">
+  <div class="brand-block">
+
+    <div class="logo-container">
+      <img
+        src="https://www.mayoclinic.org/img-20344144"
+        alt="Mayo Clinic Logo"
+        class="logo-img"
+      />
+    </div>
+
+    <div class="brand-text">
+      <strong>Mayo Clinic Care Coordinator Script</strong>
+      <span>Primary Care</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="panel">
+
+<div class="tabs">
+  <div class="tab active" data-tab="1">Opening</div>
+  <div class="tab" data-tab="2">Assessment</div>
+  <div class="tab" data-tab="3">Wrap-Up</div>
+</div>
+
+<!-- OPENING -->
+<div id="tab-1" class="tab-content active">
+
+  <div class="script-box">
+    “Hello, thank you for trusting Mayo Clinic with your care. My name is <strong>Sarah</strong>. It looks like you have some questions regarding labs?”
+  </div>
+
+  <!-- PATIENT VERIFICATION -->
+  <div class="hipaa-box">
+    ✔ Patient Authenticated / HIPAA Verified
+  </div>
+
+  <!-- PATIENT DETAILS -->
+  <div class="field">
+    <label>Patient</label>
+    <input value="Jordan Wheeler" />
+  </div>
+
+  <div class="field">
+    <label>DOB</label>
+    <input value="September 3, 1979" />
+  </div>
+
+  <div class="field">
+    <label>Appointment</label>
+    <input value="November 12, 2026 at 3:30 PM - Dr. Alvarez's Care Team - Mayo Clinic Primary Care" />
+  </div>
+
+  <div class="field">
+    <label>Visit Type</label>
+    <input value="Primary Care Visit" />
+  </div>
+
+  <div class="field">
+    <label>Reason for Contact</label>
+    <input value="Questions regarding labs" />
+  </div>
+
+</div>
+
+<!-- ASSESSMENT -->
+<div id="tab-2" class="tab-content">
+
+  <div class="script-box">
+    “I’d be happy to help with your lab questions. Can you tell me a little more about what you’d like to review?”
+  </div>
+
+  <textarea
+    id="notes"
+    placeholder="Document the patient's lab questions, requested results, concerns, or any follow-up needed with Dr. Alvarez's care team..."
+  ></textarea>
+
+</div>
+
+<!-- WRAP UP -->
+<div id="tab-3" class="tab-content">
+
+  <div class="script-box">
+    “Thank you. I’ve documented your questions and any follow-up needed with Dr. Alvarez's care team. Is there anything else I can help you with today?”
+  </div>
+
+  <button onclick="generateSummary()">Generate Summary</button>
+
+  <div class="summary" id="summary">No summary yet.</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+const tabs = document.querySelectorAll(".tab");
+const contents = document.querySelectorAll(".tab-content");
+
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    tabs.forEach(t => t.classList.remove("active"));
+    contents.forEach(c => c.classList.remove("active"));
+
+    tab.classList.add("active");
+    document.getElementById("tab-" + tab.dataset.tab).classList.add("active");
+  });
+});
+
+function generateSummary() {
+  document.getElementById("summary").innerText =
+    "Patient: Jordan Wheeler\n" +
+    "DOB: September 3, 1979\n" +
+    "Patient Authentication: HIPAA Verified\n" +
+    "Appointment: November 12, 2026 at 3:30 PM\n" +
+    "Care Team: Dr. Alvarez's Care Team\n" +
+    "Location: Mayo Clinic Primary Care\n" +
+    "Visit Type: Primary Care Visit\n" +
+    "Reason for Contact: Questions regarding labs\n\n" +
+    "Notes:\n" +
+    document.getElementById("notes").value;
+}
+</script>
+
+</body>
+</html>
