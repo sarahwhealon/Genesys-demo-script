@@ -38,51 +38,28 @@ body {
 
 .topbar {
   background: white;
-  padding: 12px 18px;
+  padding: 14px 18px;
   border-radius: 16px;
   box-shadow: var(--shadow);
   margin-bottom: 18px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-}
-
-.brand-block {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Mayo Clinic Logo */
-.logo-img {
-  height: 48px;
-  width: auto;
-  max-width: 150px;
-  object-fit: contain;
-  display: block;
 }
 
 .brand-text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
 .brand-text strong {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--text);
 }
 
 .brand-text span {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--muted);
 }
 
@@ -193,14 +170,6 @@ button:hover {
 }
 
 @media (max-width: 700px) {
-  .topbar {
-    align-items: flex-start;
-  }
-
-  .logo-img {
-    height: 42px;
-  }
-
   .tabs {
     flex-wrap: wrap;
   }
@@ -215,21 +184,9 @@ button:hover {
 <!-- HEADER -->
 <div class="topbar">
 
-  <div class="brand-block">
-
-    <div class="logo-container">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/5/55/Mayo_Clinic_logo.svg"
-        alt="Mayo Clinic Logo"
-        class="logo-img"
-      />
-    </div>
-
-    <div class="brand-text">
-      <strong>Mayo Clinic Care Coordinator Script</strong>
-      <span>Primary Care</span>
-    </div>
-
+  <div class="brand-text">
+    <strong>Mayo Clinic Care Coordinator Script</strong>
+    <span>Primary Care</span>
   </div>
 
 </div>
@@ -242,7 +199,6 @@ button:hover {
   <div class="tab" data-tab="2">Assessment</div>
   <div class="tab" data-tab="3">Wrap-Up</div>
 </div>
-
 
 <!-- =========================
      OPENING
@@ -292,7 +248,6 @@ button:hover {
 
 </div>
 
-
 <!-- =========================
      ASSESSMENT
 ========================= -->
@@ -310,7 +265,6 @@ button:hover {
   ></textarea>
 
 </div>
-
 
 <!-- =========================
      WRAP-UP
@@ -337,7 +291,6 @@ button:hover {
 </div>
 
 </div>
-
 
 <!-- =========================
      JAVASCRIPT
@@ -368,27 +321,18 @@ tabs.forEach(tab => {
 
 });
 
-
 function generateSummary() {
 
   document.getElementById("summary").innerText =
 
     "Patient: Jordan Wheeler\n" +
-
     "DOB: September 3, 1979\n" +
-
     "Patient Authentication: HIPAA Verified\n" +
-
     "Appointment: November 12, 2026 at 3:30 PM\n" +
-
     "Care Team: Dr. Alvarez's Care Team\n" +
-
     "Location: Mayo Clinic Primary Care\n" +
-
     "Visit Type: Primary Care Visit\n" +
-
     "Reason for Contact: Questions regarding labs\n\n" +
-
     "Notes:\n" +
 
     document.getElementById("notes").value;
