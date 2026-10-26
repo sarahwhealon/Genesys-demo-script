@@ -61,9 +61,11 @@ body {
   justify-content: center;
 }
 
+/* Mayo Clinic Logo */
 .logo-img {
   height: 48px;
   width: auto;
+  max-width: 150px;
   object-fit: contain;
   display: block;
 }
@@ -165,7 +167,7 @@ textarea {
   white-space: pre-line;
 }
 
-/* Patient verification highlight */
+/* Patient Verification Highlight */
 .hipaa-box {
   background: var(--success-bg);
   border: 2px solid var(--success-border);
@@ -196,7 +198,7 @@ button:hover {
   }
 
   .logo-img {
-    height: 40px;
+    height: 42px;
   }
 
   .tabs {
@@ -210,12 +212,14 @@ button:hover {
 
 <div class="app-shell">
 
+<!-- HEADER -->
 <div class="topbar">
+
   <div class="brand-block">
 
     <div class="logo-container">
       <img
-        src="https://www.mayoclinic.org/img-20344144"
+        src="https://upload.wikimedia.org/wikipedia/commons/5/55/Mayo_Clinic_logo.svg"
         alt="Mayo Clinic Logo"
         class="logo-img"
       />
@@ -227,8 +231,10 @@ button:hover {
     </div>
 
   </div>
+
 </div>
 
+<!-- MAIN SCRIPT -->
 <div class="panel">
 
 <div class="tabs">
@@ -237,11 +243,17 @@ button:hover {
   <div class="tab" data-tab="3">Wrap-Up</div>
 </div>
 
-<!-- OPENING -->
+
+<!-- =========================
+     OPENING
+========================= -->
+
 <div id="tab-1" class="tab-content active">
 
   <div class="script-box">
-    “Hello, thank you for trusting Mayo Clinic with your care. My name is <strong>Sarah</strong>. It looks like you have some questions regarding labs?”
+    “Hello, thank you for trusting Mayo Clinic with your care.
+    My name is <strong>Sarah</strong>.
+    It looks like you have some questions regarding labs?”
   </div>
 
   <!-- PATIENT VERIFICATION -->
@@ -250,6 +262,7 @@ button:hover {
   </div>
 
   <!-- PATIENT DETAILS -->
+
   <div class="field">
     <label>Patient</label>
     <input value="Jordan Wheeler" />
@@ -262,7 +275,9 @@ button:hover {
 
   <div class="field">
     <label>Appointment</label>
-    <input value="November 12, 2026 at 3:30 PM - Dr. Alvarez's Care Team - Mayo Clinic Primary Care" />
+    <input
+      value="November 12, 2026 at 3:30 PM - Dr. Alvarez's Care Team - Mayo Clinic Primary Care"
+    />
   </div>
 
   <div class="field">
@@ -277,11 +292,16 @@ button:hover {
 
 </div>
 
-<!-- ASSESSMENT -->
+
+<!-- =========================
+     ASSESSMENT
+========================= -->
+
 <div id="tab-2" class="tab-content">
 
   <div class="script-box">
-    “I’d be happy to help with your lab questions. Can you tell me a little more about what you’d like to review?”
+    “I’d be happy to help with your lab questions.
+    Can you tell me a little more about what you’d like to review?”
   </div>
 
   <textarea
@@ -291,50 +311,90 @@ button:hover {
 
 </div>
 
-<!-- WRAP UP -->
+
+<!-- =========================
+     WRAP-UP
+========================= -->
+
 <div id="tab-3" class="tab-content">
 
   <div class="script-box">
-    “Thank you. I’ve documented your questions and any follow-up needed with Dr. Alvarez's care team. Is there anything else I can help you with today?”
+    “Thank you. I’ve documented your questions and any follow-up needed
+    with Dr. Alvarez's care team. Is there anything else I can help you
+    with today?”
   </div>
 
-  <button onclick="generateSummary()">Generate Summary</button>
+  <button onclick="generateSummary()">
+    Generate Summary
+  </button>
 
-  <div class="summary" id="summary">No summary yet.</div>
+  <div class="summary" id="summary">
+    No summary yet.
+  </div>
 
 </div>
 
 </div>
 
 </div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
 <script>
+
 const tabs = document.querySelectorAll(".tab");
 const contents = document.querySelectorAll(".tab-content");
 
 tabs.forEach(tab => {
+
   tab.addEventListener("click", () => {
+
     tabs.forEach(t => t.classList.remove("active"));
-    contents.forEach(c => c.classList.remove("active"));
+
+    contents.forEach(c =>
+      c.classList.remove("active")
+    );
 
     tab.classList.add("active");
-    document.getElementById("tab-" + tab.dataset.tab).classList.add("active");
+
+    document
+      .getElementById("tab-" + tab.dataset.tab)
+      .classList.add("active");
+
   });
+
 });
 
+
 function generateSummary() {
+
   document.getElementById("summary").innerText =
+
     "Patient: Jordan Wheeler\n" +
+
     "DOB: September 3, 1979\n" +
+
     "Patient Authentication: HIPAA Verified\n" +
+
     "Appointment: November 12, 2026 at 3:30 PM\n" +
+
     "Care Team: Dr. Alvarez's Care Team\n" +
+
     "Location: Mayo Clinic Primary Care\n" +
+
     "Visit Type: Primary Care Visit\n" +
+
     "Reason for Contact: Questions regarding labs\n\n" +
+
     "Notes:\n" +
+
     document.getElementById("notes").value;
+
 }
+
 </script>
 
 </body>
